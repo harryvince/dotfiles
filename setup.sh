@@ -42,5 +42,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 echo y | ~/.fzf/install
 echo "export LS_COLORS=$LS_COLORS: 'ow=1;34:';" >> ~/.bashrc
 echo "export LS_COLORS=$LS_COLORS: 'ow=1;34:';" >> ~/.zshrc
+echo 'alias chrome="/mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe"' >> ~/.bashrc
+echo 'alias chrome="/mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe"' >> ~/.zshrc
 echo 'Tool Setup Finished'
 echo 'Please ensure to source your rc file for fzf to work correctly'
