@@ -34,6 +34,10 @@ set-window-option -g mode-keys vi
 set -g status-fg green
 set -g status-bg black
 EOE
+cat > ~/.vimrc <<'EOE'
+set number
+set relativenumber
+EOE
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 echo y | ~/.fzf/install
 echo "export LS_COLORS=$LS_COLORS: 'ow=1;34:';" >> ~/.bashrc
