@@ -1,7 +1,7 @@
 #!/bin/bash
 # Setup packages required for script
 echo 'Setting up tools...'
-packagesNeeded='curl jq tmux vim htop'
+packagesNeeded='curl jq tmux vim htop git'
 if [ -x "$(command -v apk)" ];       then sudo apk add --no-cache $packagesNeeded -y
 elif [ -x "$(command -v apt-get)" ]; then sudo apt-get install $packagesNeeded -y
 elif [ -x "$(command -v dnf)" ];     then sudo dnf install $packagesNeeded -y
@@ -34,4 +34,7 @@ set-window-option -g mode-keys vi
 set -g status-fg green
 set -g status-bg black
 EOE
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+echo y | ~/.fzf/install
 echo 'Tool Setup Finished'
+echo 'Please ensure to source your rc file for fzf to work correctly'
