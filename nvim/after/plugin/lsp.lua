@@ -4,7 +4,6 @@ lsp.preset('recommended')
 lsp.ensure_installed({
   'tsserver',
   'eslint',
-  'sumneko_lua',
   'rust_analyzer',
 })
 
@@ -18,7 +17,12 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 })
 
 lsp.set_preferences({
-  sign_icons = { }
+  sign_icons = { 
+      error = 'E',
+      warn = 'W',
+      hint = 'H',
+      info = 'I'
+  }
 })
 
 lsp.setup_nvim_cmp({
@@ -41,3 +45,7 @@ lsp.on_attach(function(client, bufnr)
 end)
 
 lsp.setup()
+
+vim.diagnostic.config({
+    virtual_text = true
+})

@@ -47,6 +47,9 @@ return require('packer').startup(function(use)
 		  -- Snippets
 		  {'L3MON4D3/LuaSnip'},             -- Required
 		  {'rafamadriz/friendly-snippets'}, -- Optional
+
+          -- Rust
+          {'simrat39/rust-tools.nvim'}
 	  }
   }
 end)
