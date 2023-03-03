@@ -25,10 +25,15 @@ return require('packer').startup(function(use)
         end
     })
 
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
+
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
     use('theprimeagen/harpoon')
     use('mbbill/undotree')
-    use('tpope/vim-fugitive')
+    use('voldikss/vim-floaterm')
 
     use {
         'VonHeikemen/lsp-zero.nvim',
