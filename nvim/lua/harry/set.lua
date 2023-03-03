@@ -29,3 +29,6 @@ vim.opt.updatetime = 50
 --vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
+
+-- Disable the line as we now have a nice line
+vim.cmd "set noshowmode"

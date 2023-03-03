@@ -16,24 +16,27 @@ return require('packer').startup(function(use)
         end,
     })
 
-    use({
-        'rose-pine/neovim',
-        as = 'rose-pine',
-        config = function()
-            require("rose-pine").setup()
-            vim.cmd('colorscheme rose-pine')
-        end
-    })
-
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
+
+    use { 
+        'olivercederborg/poimandres.nvim',
+        config = function()
+            require('poimandres').setup {
+                -- leave this setup function empty for default config
+                -- or refer to the configuration section
+                -- for configuration options
+            }
+        end
     }
 
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
     use('theprimeagen/harpoon')
     use('mbbill/undotree')
     use('voldikss/vim-floaterm')
+    use('lewis6991/gitsigns.nvim')
 
     use {
         'VonHeikemen/lsp-zero.nvim',
