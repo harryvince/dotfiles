@@ -38,6 +38,7 @@ return require('packer').startup(function(use)
     use('mbbill/undotree')
     use('voldikss/vim-floaterm')
     use('lewis6991/gitsigns.nvim')
+    use('preservim/nerdcommenter')
 
     use {
         'VonHeikemen/lsp-zero.nvim',
