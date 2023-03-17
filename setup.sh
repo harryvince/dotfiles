@@ -39,4 +39,4 @@ mkdir $HOME/.config/nvim/plugin
 nvim +PackerSync
 
 echo "Script Finished."
-echo "Make sure to install lazygit & ripgrep for the neovim setup to run"
+echo "Make sure to source your .zshrc"
