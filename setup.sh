@@ -34,6 +34,9 @@ echo "Installing Packer..."
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
+mkdir ~/pictures
+cp ./2560x1440-Wallpaper-Free-Download-1.jpg ~/pictures/2560x1440-Wallpaper-Free-Download-1.jpg
+
 echo "Running Packer..."
 mkdir $HOME/.config/nvim/plugin
 nvim +PackerSync
