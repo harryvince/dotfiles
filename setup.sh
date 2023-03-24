@@ -1,7 +1,7 @@
 #!/bin/bash
 # Setup base packages required for script
 echo 'Setting up tools...'
-packagesNeeded='curl jq tmux vim htop git ripgrep unzip'
+packagesNeeded='curl jq tmux vim htop git ripgrep unzip xclip'
 if [ -x "$(command -v apt-get)" ]
 then
     sudo apt-get install $packagesNeeded -y
@@ -18,7 +18,6 @@ then
     curl -sLf --retry 3 --tlsv1.2 --proto "=https" 'https://packages.doppler.com/public/cli/gpg.DE2A7741A397C129.key' | sudo apt-key add -
     echo "deb https://packages.doppler.com/public/cli/deb/debian any-version main" | sudo tee /etc/apt/sources.list.d/doppler-cli.list
     sudo apt-get update && sudo apt-get install doppler
-
 elif [ -x "$(command -v brew)" ]
 then
     brew install $packagesNeeded
