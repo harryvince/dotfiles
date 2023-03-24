@@ -53,5 +53,9 @@ nvim +PackerSync
 # Setup cht.sh
 cp -r ./bin ~/bin
 
+# Copy across home files
+cp ./.tmux.conf
+cp ./.vimrc
+
 echo "Script Finished."
 echo "Make sure to source your .zshrc\nIf using doppler make sure to grab your required secrets"
