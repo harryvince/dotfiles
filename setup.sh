@@ -50,10 +50,5 @@ echo "Running Packer..."
 mkdir $HOME/.config/nvim/plugin
 nvim +PackerSync
 
-# I Currently use doppler for my secret management
-# Please feel free to remove this section if it's not needed
-doppler login
-doppler setup
-
 echo "Script Finished."
 echo "Make sure to source your .zshrc\nIf using doppler make sure to grab your required secrets"
