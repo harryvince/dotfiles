@@ -50,7 +50,7 @@ echo "Running Packer..."
 mkdir $HOME/.config/nvim/plugin
 nvim +PackerSync
 
-# I Currently user doppler for my secret management
+# I Currently use doppler for my secret management
 # Please feel free to remove this section if it's not needed
 doppler login
 doppler setup
