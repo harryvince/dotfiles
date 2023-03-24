@@ -50,5 +50,8 @@ echo "Running Packer..."
 mkdir $HOME/.config/nvim/plugin
 nvim +PackerSync
 
+# Setup cht.sh
+cp -r ./bin ~/bin
+
 echo "Script Finished."
 echo "Make sure to source your .zshrc\nIf using doppler make sure to grab your required secrets"
