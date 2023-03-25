@@ -4,7 +4,6 @@ tldr
 sed
 awk
 tr
-cp
 ls
 grep
 xargs
@@ -33,3 +32,17 @@ docker-compose
 stow
 chmod
 chown
+nodejs
+javascript
+tmux
+typescript
+zsh
+lua
+rust
+python
+bash
+php
+css
+html
+aws
+jq
