@@ -13,19 +13,11 @@ then
     wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
     sudo apt install ./nvim-linux-64.deb
     rm nvim-linux64.deb
-    # This is where the doppler setup begins - feel free to remove
-    sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
-    curl -sLf --retry 3 --tlsv1.2 --proto "=https" 'https://packages.doppler.com/public/cli/gpg.DE2A7741A397C129.key' | sudo apt-key add -
-    echo "deb https://packages.doppler.com/public/cli/deb/debian any-version main" | sudo tee /etc/apt/sources.list.d/doppler-cli.list
-    sudo apt-get update && sudo apt-get install doppler
 elif [ -x "$(command -v brew)" ]
 then
     brew install $packagesNeeded
     brew install jesseduffield/lazygit/lazygit
     brew install neovim
-    # This is where the doppler setup begins - feel free to remove
-    brew install gnupg
-    brew install dopplerhq/cli/doppler
 else
     echo "FAILED TO INSTALL PACKAGE: Package manager not found. You must manually install: $packagesNeeded">&2; fi
 fi
@@ -41,20 +33,26 @@ cp -r nvim ~/.config/nvim
 echo "Installing Packer..."
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-
-mkdir ~/pictures
-cp ./2560x1440-Wallpaper-Free-Download-1.jpg ~/pictures/2560x1440-Wallpaper-Free-Download-1.jpg
-
 echo "Running Packer..."
 mkdir $HOME/.config/nvim/plugin
 nvim +PackerSync
+ 
+# Nix
+cp -r nix ~/.config/nix
+cp -r nixpkgs -r ~/.config/nix
+
+# i3
+cp -r i3 ~/.config/i3
+cp -r i3status ~/.config/i3status
+mkdir ~/pictures
+cp ./2560x1440-Wallpaper-Free-Download-1.jpg ~/pictures/2560x1440-Wallpaper-Free-Download-1.jpg
 
 # Setup cht.sh
-cp -r ./bin ~/bin
+cp -r bin ~/bin
 
 # Copy across home files
-cp ./.tmux.conf
-cp ./.vimrc
+cp .tmux.conf
+cp .vimrc
 
 echo "Script Finished."
 echo "Make sure to source your .zshrc\nIf using doppler make sure to grab your required secrets"
