@@ -30,19 +30,8 @@ return require('packer').startup(function(use)
         end
     })
 
-    --use {
-    --'olivercederborg/poimandres.nvim',
-    --config = function()
-    --require('poimandres').setup {
-    --dim_nc_background = true,
-    --disable_background = true,
-    --disable_float_background = false,
-    --}
-    --end
-    --}
-
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
-    use("nvim-treesitter/nvim-treesitter-context")
+    use('nvim-treesitter/nvim-treesitter-context')
     use('theprimeagen/harpoon')
     use('mbbill/undotree')
     use('voldikss/vim-floaterm')

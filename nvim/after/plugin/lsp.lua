@@ -53,6 +53,15 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+    vim.keymap.set("n", "<leader>ff", function()
+        if client.supports_method("textDocument/formatting") then
+            vim.lsp.buf.format { async = true }
+        end
+
+        if (client.name == "eslint") then
+            vim.cmd('EslintFixAll')
+        end
+    end, opts)
 end)
 
 lsp.setup()
