@@ -5,3 +5,6 @@ source $ZSH/oh-my-zsh.sh
 
 # copy files to clipboard
 alias xclip="xclip -selection c"
+
+# lets rebind vim to neovim because of muscle memory
+alias vim="nvim"
