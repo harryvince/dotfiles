@@ -36,6 +36,9 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 echo "Running Packer..."
 mkdir $HOME/.config/nvim/plugin
 nvim +PackerSync
+
+# setup tpm for tmux
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
  
 # Nix
 cp -r nix ~/.config/nix
@@ -47,7 +50,7 @@ cp -r i3status ~/.config/i3status
 mkdir ~/pictures
 cp ./2560x1440-Wallpaper-Free-Download-1.jpg ~/pictures/2560x1440-Wallpaper-Free-Download-1.jpg
 
-# Setup cht.sh
+# Setup the bin folder
 cp -r bin ~/bin
 
 # Copy across home files
