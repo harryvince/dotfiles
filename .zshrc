@@ -8,3 +8,6 @@ alias xclip="xclip -selection c"
 
 # lets rebind vim to neovim because of muscle memory
 alias vim="nvim"
+
+# Sessionizer binding
+bindkey -s ^f "~/bin/scripts/sessionizer\n"
