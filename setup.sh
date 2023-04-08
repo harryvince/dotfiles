@@ -1,7 +1,7 @@
 #!/bin/bash
 # Setup base packages required for script
 echo 'Setting up tools...'
-packagesNeeded='curl jq tmux vim htop git ripgrep unzip xclip'
+packagesNeeded='curl jq tmux vim htop git ripgrep unzip xclip zoxide'
 if [ -x "$(command -v apt-get)" ]
 then
     sudo apt-get install $packagesNeeded -y
