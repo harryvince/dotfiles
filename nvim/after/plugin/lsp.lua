@@ -29,10 +29,10 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 
 lsp.set_preferences({
     sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
+        error = " ",
+        warn = " ",
+        hint = " ",
+        info = " ",
     }
 })
 
@@ -53,9 +53,15 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-    vim.keymap.set("n", "<leader>ff", function() vim.lsp.buf.format { async = true } end, opts)
-    vim.keymap.set("n", "<leader>ef", function() vim.cmd('EslintFixAll') end, opts)
-
+    vim.keymap.set("n", "<leader>ff", function()
+        if client.server_capabilities.document_formatting then
+            if client.name == 'eslint' then
+                vim.keymap.set("n", "<leader>ff", function() vim.cmd('EslintFixAll') end, opts)
+            else
+                vim.keymap.set("n", "<leader>ff", function() vim.lsp.buf.formatting_sync(nil, 1000) end, opts)
+            end
+        end
+    end, opts)
 end)
 
 lsp.setup()
