@@ -1,47 +1,58 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
--- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable",
+        lazypath,
+    })
+end
+vim.opt.rtp:prepend(lazypath)
 
-return require('packer').startup(function(use)
-    -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
-
-    use({
+return require('lazy').setup({
+    {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.1',
         -- or                            , branch = '0.1.x',
-        requires = { { 'nvim-lua/plenary.nvim' }, { 'kdheepak/lazygit.nvim' } },
+        dependencies = { { 'nvim-lua/plenary.nvim' }, { 'kdheepak/lazygit.nvim' } },
         config = function()
             require("telescope").load_extension("lazygit")
         end,
-    })
+    },
 
-    use {
+    {
         'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-    }
+        dependencies = { 'kyazdani42/nvim-web-devicons' }
+    },
 
-    use({
+    {
         'rose-pine/neovim',
         as = 'rose-pine',
         config = function()
             vim.cmd('colorscheme rose-pine')
         end
-    })
+    },
 
-    use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
-    use("nvim-treesitter/nvim-treesitter-context")
-    use('theprimeagen/harpoon')
-    use('mbbill/undotree')
-    use('voldikss/vim-floaterm')
-    use('lewis6991/gitsigns.nvim')
-    use('preservim/nerdcommenter')
+    {
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate'
+    },
 
-    use {
+    'nvim-treesitter/nvim-treesitter-context',
+    'theprimeagen/harpoon',
+    'mbbill/undotree',
+    'voldikss/vim-floaterm',
+    'lewis6991/gitsigns.nvim',
+    'preservim/nerdcommenter',
+
+    {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v1.x',
-        requires = {
+        dependencies = {
             -- LSP Support
             { 'neovim/nvim-lspconfig' },             -- Required
             { 'williamboman/mason.nvim' },           -- Optional
@@ -62,5 +73,5 @@ return require('packer').startup(function(use)
             -- Rust
             { 'simrat39/rust-tools.nvim' }
         }
-    }
-end)
+    },
+})
