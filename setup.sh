@@ -19,7 +19,7 @@ then
     brew install jesseduffield/lazygit/lazygit
     brew install neovim
 else
-    echo "FAILED TO INSTALL PACKAGE: Package manager not found. You must manually install: $packagesNeeded">&2; fi
+    echo "FAILED TO INSTALL PACKAGE: Package manager not found. You must manually install: $packagesNeeded">&2; 
 fi
 
 # Setup oh my zsh
@@ -48,8 +48,8 @@ cp ./2560x1440-Wallpaper-Free-Download-1.jpg ~/pictures/2560x1440-Wallpaper-Free
 cp -r bin ~/bin
 
 # Copy across home files
-cp .tmux.conf
-cp .vimrc
+cp .tmux.conf ~/.tmux.conf
+cp .vimrc ~/.vimrc
 
 echo "Script Finished."
 echo "Make sure to source your .zshrc\nIf using doppler make sure to grab your required secrets"
