@@ -30,3 +30,9 @@ find useful, please do submit a pull request.
 
 ## Moonlander MK1 Layout
 https://configure.zsa.io/moonlander/layouts/9RooK/latest/0
+
+## Nix
+```
+nix run ~/.config/home-manager#homeConfigurations.harry.activationPackage
+home-manager switch
+```
