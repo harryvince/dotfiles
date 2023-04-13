@@ -11,6 +11,8 @@ alias vim="nvim"
 
 # Sessionizer binding
 bindkey -s ^f "~/bin/scripts/sessionizer\n"
+# SSM binding
+bindkey -s ^s "~/bin/scripts/ssm\n"
 
 # Start Zoxide
 Zruncount=$(ps -ef | grep "zoxide" | grep -v "grep" | wc -l)
