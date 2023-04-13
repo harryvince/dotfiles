@@ -1,1 +1,11 @@
-packer_compiled.lua
+dconf/
+environment.d/
+evolution/
+gnome-initial-setup-done
+gtk-3.0/
+ibus/
+lazygit/
+nvim/lazy-lock.json
+pulse/
+user-dirs.dirs
+user-dirs.locale
