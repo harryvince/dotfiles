@@ -8,12 +8,10 @@ with pkgs; [
     jq
     just
     lazygit
-    neovim
     nodejs
     python3Full
     ripgrep
     rustc
-    tmux
     unzip
     wget
     xclip

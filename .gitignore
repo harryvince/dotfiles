@@ -9,3 +9,6 @@ nvim/lazy-lock.json
 pulse/
 user-dirs.dirs
 user-dirs.locale
+.gsd-keyboard.settings-ported
+enchant/
+gedit/
