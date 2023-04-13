@@ -16,5 +16,5 @@ with pkgs; [
     wget
     xclip
     zoxide
-    hack-font
+    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Ubuntu" ]; })
 ]
