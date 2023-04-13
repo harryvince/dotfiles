@@ -16,4 +16,5 @@ with pkgs; [
     wget
     xclip
     zoxide
+    hack-font
 ]

@@ -10,6 +10,8 @@ let
     tmux_config = builtins.readFile ../.tmux.conf;
 in
 {
+    fonts.fontconfig.enable = true;
+
     home = {
         username = "harry";
         homeDirectory = "/home/harry";
@@ -18,6 +20,10 @@ in
 
         file.".tmux/plugins/tpm" = {
             source = tpm;
+        };
+
+        file."bin" = {
+            source = builtins.toPath ../bin;
         };
     };
 
@@ -40,6 +46,15 @@ in
             wt = "git worktree";
             lg = "lazygit";
         };
+
+        initExtra = ''
+            # Sessionizer binding
+            bindkey -s ^f "~/bin/scripts/sessionizer\n"
+            # SSM Binding
+            bindkey -s ^s "~/bin/scripts/ssm\n"
+            # Start Zoxide
+            eval "$(zoxide init zsh)"
+        '';
     };
 
     programs.neovim = {
