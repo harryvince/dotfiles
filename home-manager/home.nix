@@ -52,6 +52,7 @@ in
             bindkey -s ^f "~/bin/scripts/sessionizer\n"
             # SSM Binding
             bindkey -s ^s "~/bin/scripts/ssm\n"
+            bindkey -s ^S "~/bin/scripts/ssm --list-ids\n"
             # Start Zoxide
             eval "$(zoxide init zsh)"
         '';
