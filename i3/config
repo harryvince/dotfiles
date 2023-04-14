@@ -186,6 +186,7 @@ bar {
 }
 
 exec_always --no-startup-id feh --bg-scale /home/harry/Pictures/index.jpeg
+exec_always --no-startup-id compton --config /home/harry/.config/compton/compton.conf
 #default window borders
 default_border none
 # default_floating_border 1pixel
