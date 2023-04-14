@@ -3,7 +3,7 @@
 # Check if the --list-ids flag was passed in as an argument
 if [[ "$1" == "--list-ids" ]]; then
   # Get a list of all EC2 instance IDs
-  names=$(aws ec2 describe-instances --query 'Reservations[].Instances[].InstanceId' --output text)
+  names=$(aws ec2 describe-instances --query 'Reservations[].Instances[].InstanceId' --output text | tr '\t' '\n')
 else
   # Get a list of all EC2 instances and format the output as "name - instance_id"
   names=$(aws ec2 describe-instances --query 'Reservations[].Instances[].[Tags[?Key==`Name`].Value[]]' --output text)
@@ -21,7 +21,7 @@ if [ -n "$selected_name" ]; then
     fi
 
     if [ -n "$instance_id" ]; then
-        aws ssm start-session --target "$selected_instance"
+        aws ssm start-session --target "$instance_id"
     else
         echo "Error: could not find instance ID for $selected_name"
     fi
