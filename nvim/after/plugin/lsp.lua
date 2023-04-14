@@ -30,10 +30,10 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 
 lsp.set_preferences({
     sign_icons = {
-        error = " ",
-        warn = " ",
-        hint = " ",
-        info = " ",
+        error = "",
+        warn = "",
+        hint = "",
+        info = "",
     }
 })
 
