@@ -19,13 +19,12 @@ in
         stateVersion = "22.11";
         packages = import ./packages.nix { inherit pkgs; };
 
-        file.".tmux/plugins/tpm" = {
-            source = tpm;
+        file = {
+            ".tmux/plugins/tpm".source = tpm;
+            "bin".source = builtins.toPath ../bin;
+            ".tmux-personal".source = builtins.readFile ../personal/.configs/.tmux-personal.conf;
         };
 
-        file."bin" = {
-            source = builtins.toPath ../bin;
-        };
     };
 
     programs.home-manager = {
