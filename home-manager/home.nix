@@ -7,14 +7,15 @@ let
         rev = "master";
         sha256 = "01ribl326n6n0qcq68a8pllbrz6mgw55kxhf9mjdc5vw01zjcvw5";
     };
+    config_file = builtins.fromJSON (builtins.readFile ./config.json);
     tmux_config = builtins.readFile ../.tmux.conf;
 in
 {
     fonts.fontconfig.enable = true;
 
     home = {
-        username = "harry";
-        homeDirectory = "/home/harry";
+        username = config_file.system.user;
+        homeDirectory = "/home/${config_file.system.user}";
         stateVersion = "22.11";
         packages = import ./packages.nix { inherit pkgs; };
 
@@ -33,6 +34,8 @@ in
 
     programs.git = {
         enable = true;
+        userEmail = config_file.git.email;
+        userName = config_file.git.name;
     };
 
     programs.zsh = {
