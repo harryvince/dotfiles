@@ -22,7 +22,6 @@ in
         file = {
             ".tmux/plugins/tpm".source = tpm;
             "bin".source = builtins.toPath ../bin;
-            ".tmux-personal".source = builtins.readFile ../personal/.configs/.tmux-personal.conf;
         };
 
     };
