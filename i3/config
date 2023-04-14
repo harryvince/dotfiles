@@ -185,8 +185,7 @@ bar {
         status_command i3status
 }
 
-exec_always --no-startup-id /usr/bin/feh --bg-scale '/home/harry/pictures/2560x1440-Wallpaper-Free-Download-1.jpg'
-exec_always --no-startup-id compton --config /home/harry/.config/compton.conf
+exec_always --no-startup-id feh --bg-scale /home/harry/Pictures/index.jpeg
 #default window borders
 default_border none
 # default_floating_border 1pixel
