@@ -1,12 +1,28 @@
 #!/bin/bash
 
-# Get a list of all EC2 instances and format the output as "name - instance_id"
-instances=$(aws ec2 describe-instances --query "Reservations[].Instances[].[Tags[?Key=='Name'].Value[],InstanceId]" --output text | tr '\t' ' ' | sed 's/\n/ /g' | sed 's/  / - /g')
+# Check if the --list-ids flag was passed in as an argument
+if [[ "$1" == "--list-ids" ]]; then
+  # Get a list of all EC2 instance IDs
+  names=$(aws ec2 describe-instances --query 'Reservations[].Instances[].InstanceId' --output text)
+else
+  # Get a list of all EC2 instances and format the output as "name - instance_id"
+  names=$(aws ec2 describe-instances --query 'Reservations[].Instances[].[Tags[?Key==`Name`].Value[]]' --output text)
+fi
 
 # Use fzf to allow the user to select an instance from the list
-selected_instance=$(echo "$instances" | fzf --header 'Select an EC2 instance to connect to:' | awk '{print $NF}')
+selected_name=$(echo "$names" | fzf --header 'Select an EC2 instance to connect to:' --exact)
 
 # If the user selected an instance, connect to it using SSM
-if [ -n "$selected_instance" ]; then
-  aws ssm start-session --target "$selected_instance"
+if [ -n "$selected_name" ]; then
+    if [[ "$1" == "--list-ids" ]]; then
+        instance_id=$selected_name
+    else
+        instance_id=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$selected_name" --query 'Reservations[*].Instances[*].InstanceId' --output text)
+    fi
+
+    if [ -n "$instance_id" ]; then
+        aws ssm start-session --target "$selected_instance"
+    else
+        echo "Error: could not find instance ID for $selected_name"
+    fi
 fi
