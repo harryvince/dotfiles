@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
 with pkgs; [
+    ansible
     awscli2
     cargo
     fzf
