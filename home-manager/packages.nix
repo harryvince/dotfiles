@@ -4,6 +4,7 @@ with pkgs; [
     ansible
     awscli2
     cargo
+    fd
     fzf
     gcc
     htop
