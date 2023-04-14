@@ -31,6 +31,10 @@ in
         enable = true;
     };
 
+    programs.git = {
+        enable = true;
+    };
+
     programs.zsh = {
         enable = true;
         enableAutosuggestions = true;
@@ -68,5 +72,9 @@ in
         enable = true;
         shell = "${pkgs.zsh}/bin/zsh";
         extraConfig = tmux_config;
+    };
+
+    programs.lazygit = {
+        enable = true;
     };
 }

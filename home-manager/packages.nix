@@ -7,7 +7,6 @@ with pkgs; [
     htop
     jq
     just
-    lazygit
     nodejs
     python3Full
     ripgrep
