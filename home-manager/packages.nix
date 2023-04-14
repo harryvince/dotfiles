@@ -3,6 +3,7 @@
 with pkgs; [
     awscli2
     cargo
+    fzf
     gcc
     htop
     jq
