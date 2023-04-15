@@ -8,7 +8,8 @@ To use them, simply clone the repository to a directory and run the setup.sh scr
 ```
 git clone https://github.com/harryvince/dotfiles.git
 cd dotfiles
-./setup.sh
+sh <(curl -L https://nixos.org/nix/install) --daemon
+nix run ~/.config/home-manager#homeConfigurations.shared.activationPackage
 ```
 The setup script handles most of the installs and setups required for your environment, effectively replacing the default configs with
 these new ones.
@@ -30,10 +31,3 @@ find useful, please do submit a pull request.
 
 ## Moonlander MK1 Layout
 https://configure.zsa.io/moonlander/layouts/9RooK/latest/0
-
-## Nix
-```
-nix run ~/.config/home-manager#homeConfigurations.personal.activationPackage
-nix run ~/.config/home-manager#homeConfigurations.shared.activationPackage
-home-manager switch
-```

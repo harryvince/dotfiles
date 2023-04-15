@@ -6,7 +6,7 @@ let
         sha256 = "1ds251q4s6s0y3hkmrvkgr9al0fzqh2ydl5v0zl3sic0gc2gzmah";
         url = "git@github.com:harryvince/personal.git";
     };
-    i3_mod = "Mod1";
+    i3_mod = "Mod4";
 in
 {
     home.file.".background".source = ../.background;
@@ -31,6 +31,11 @@ in
         sidebar-mode = true;
         terminal = "i3-sensible-terminal";
       };
+      theme = "android_notification";
+    };
+    
+    services.picom = {
+      enable = true;
     };
 
     xsession.windowManager.i3 = {
@@ -150,7 +155,7 @@ in
           smart_borders on
           smart_gaps on
           exec_always --no-startup-id feh --bg-scale ~/.background
-          exec_awlays --no-startup-id compton
+          exec_always --no-startup-id picom
         '';
     };
 
