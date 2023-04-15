@@ -9,14 +9,14 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = inputs@{ flake-parts, ... }:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = inputs.nixpkgs.legacyPackages.${system};
     in {
-      home-manager.useUserPackages = true;
-      home-manager.useGlobalPkgs = false;
-      homeConfigurations.harry = home-manager.lib.homeManagerConfiguration {
+      inputs.home-manager.useUserPackages = true;
+      inputs.home-manager.useGlobalPkgs = false;
+      homeConfigurations.harry = inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         modules = [ ./home.nix ];
