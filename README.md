@@ -33,6 +33,7 @@ https://configure.zsa.io/moonlander/layouts/9RooK/latest/0
 
 ## Nix
 ```
-nix run ~/.config/home-manager#homeConfigurations.harry.activationPackage
+nix run ~/.config/home-manager#homeConfigurations.personal.activationPackage
+nix run ~/.config/home-manager#homeConfigurations.shared.activationPackage
 home-manager switch
 ```
