@@ -1,0 +1,5 @@
+clean:
+    nix-store --gc
+
+linux profile:
+   nix run .#homeConfigurations.{{profile}}.activationPackage
