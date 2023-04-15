@@ -17,7 +17,7 @@ in
         username = config_file.system.user;
         homeDirectory = "/home/${config_file.system.user}";
         stateVersion = "22.11";
-        packages = import ./packages.nix { inherit pkgs; };
+        packages = import ./packages { inherit pkgs; };
 
         file = {
             ".tmux/plugins/tpm".source = tpm;
