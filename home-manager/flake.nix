@@ -14,6 +14,8 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
+      home-manager.useUserPackages = true;
+      home-manager.useGlobalPkgs = false;
       homeConfigurations.harry = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
