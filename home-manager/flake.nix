@@ -13,13 +13,17 @@
     let
       system = "x86_64-linux";
       pkgs = inputs.nixpkgs.legacyPackages.${system};
+      home-manager = inputs.home-manager;
     in {
-      inputs.home-manager.useUserPackages = true;
-      inputs.home-manager.useGlobalPkgs = false;
-      homeConfigurations.harry = inputs.home-manager.lib.homeManagerConfiguration {
+      home-manager.useUserPackages = true;
+      home-manager.useGlobalPkgs = false;
+      homeConfigurations.shared = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-
-        modules = [ ./home.nix ];
+        modules = [ ./shared.nix ];
+      };
+      homeConfigurations.personal = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [ ./personal.nix ];
       };
     };
 }

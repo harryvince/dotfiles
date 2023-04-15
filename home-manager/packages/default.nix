@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 with pkgs; [
-    ansible
     awscli2
     cargo
     fd
@@ -16,7 +15,6 @@ with pkgs; [
     rustc
     unzip
     wget
-    xclip
     zoxide
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Ubuntu" ]; })
 ]
