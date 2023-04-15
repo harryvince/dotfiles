@@ -3,3 +3,6 @@ clean:
 
 linux profile:
    nix run .#homeConfigurations.{{profile}}.activationPackage
+
+update:
+    nix flake update
