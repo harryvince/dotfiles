@@ -3,6 +3,6 @@
 with pkgs; [
     ansible
     doppler
-    pulumi
+    pulumi-bin
     xclip
 ]
