@@ -3,10 +3,10 @@
 # Check if the --list-ids flag was passed in as an argument
 if [[ "$1" == "--list-ids" ]]; then
   # Get a list of all EC2 instance IDs
-  names=$(aws ec2 describe-instances --query 'Reservations[].Instances[].InstanceId' --output text | tr '\t' '\n')
+  names=$(aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query 'Reservations[].Instances[].InstanceId' --output text | tr '\t' '\n')
 else
   # Get a list of all EC2 instances and format the output as "name - instance_id"
-  names=$(aws ec2 describe-instances --query 'Reservations[].Instances[].[Tags[?Key==`Name`].Value[]]' --output text)
+  names=$(aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query 'Reservations[].Instances[].[Tags[?Key==`Name`].Value[]]' --output text)
 fi
 
 # Use fzf to allow the user to select an instance from the list
@@ -17,7 +17,7 @@ if [ -n "$selected_name" ]; then
     if [[ "$1" == "--list-ids" ]]; then
         instance_id=$selected_name
     else
-        instance_id=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$selected_name" --query 'Reservations[*].Instances[*].InstanceId' --output text)
+        instance_id=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=$selected_name" "Name=instance-state-name,Values=running" --query 'Reservations[*].Instances[*].InstanceId' --output text)
     fi
 
     if [ -n "$instance_id" ]; then
