@@ -6,3 +6,6 @@ linux profile:
 
 update:
     nix flake update
+
+optimise:
+    nix-store --optimise
