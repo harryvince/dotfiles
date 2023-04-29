@@ -9,6 +9,7 @@ with pkgs; [
     htop
     jq
     just
+    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Ubuntu" ]; })
     nodejs
     python3Full
     ripgrep
@@ -16,5 +17,4 @@ with pkgs; [
     unzip
     wget
     zoxide
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Ubuntu" ]; })
 ]
