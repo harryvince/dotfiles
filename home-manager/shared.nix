@@ -26,15 +26,16 @@ in
 
     };
 
-    programs.home-manager = {
-        enable = true;
-    };
+    programs.home-manager.enable = true;
 
     programs.git = {
         enable = true;
         userEmail = config_file.git.email;
         userName = config_file.git.name;
     };
+
+    programs.fzf.enable = true;
+    programs.zoxide.enable = true;
 
     programs.zsh = {
         enable = true;
