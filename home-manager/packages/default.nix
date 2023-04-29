@@ -4,7 +4,6 @@ with pkgs; [
     awscli2
     cargo
     fd
-    fzf
     gcc
     htop
     jq
@@ -16,5 +15,4 @@ with pkgs; [
     rustc
     unzip
     wget
-    zoxide
 ]
