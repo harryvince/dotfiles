@@ -16,7 +16,7 @@
       home-manager = inputs.home-manager;
     in {
       home-manager.useUserPackages = true;
-      home-manager.useGlobalPkgs = false;
+      home-manager.useGlobalPkgs = true;
       homeConfigurations.shared = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [ ./shared.nix ];
