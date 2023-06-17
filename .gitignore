@@ -21,3 +21,4 @@ i3status/
 rofi/
 picom/
 systemd/
+*nodemon*
