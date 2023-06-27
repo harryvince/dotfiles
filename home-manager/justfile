@@ -5,7 +5,7 @@ deepClean:
     nix-collect-garbage -d --delete-older-than 1d
 
 linux profile:
-   nix run .#homeConfigurations.{{profile}}.activationPackage
+   nix run .#homeConfigurations.{{profile}}.activationPackage --impure
 
 update:
     nix flake update

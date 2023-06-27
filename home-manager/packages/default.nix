@@ -10,6 +10,7 @@ with pkgs; [
     just
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Ubuntu" ]; })
     nodejs
+    postman
     python3Full
     ripgrep
     rustc
