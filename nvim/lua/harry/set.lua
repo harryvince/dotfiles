@@ -32,3 +32,8 @@ vim.g.mapleader = " "
 
 -- Disable the line as we now have a nice line
 vim.cmd "set noshowmode"
+
+-- Custom tabbing etc..
+vim.cmd "autocmd Filetype html setlocal ts=2 sw=2"
+vim.cmd "autocmd Filetype typescript setlocal ts=2 sw=2"
+vim.cmd "autocmd Filetype javascript setlocal ts=2 sw=2"
