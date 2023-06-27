@@ -70,12 +70,13 @@ return require('lazy').setup({
                 color_overrides = {},
                 custom_highlights = {},
                 integrations = {
-                    cmp = true,
                     gitsigns = true,
                     nvimtree = true,
                     telescope = true,
-                    notify = false,
-                    mini = false,
+                    harpoon = true,
+                    mason = true,
+                    treesitter_context = true,
+                    treesitter = true,
                     -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
                 },
             })
