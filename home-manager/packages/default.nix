@@ -2,6 +2,7 @@
 
 with pkgs; [
     awscli2
+    bat
     cargo
     fd
     gcc
