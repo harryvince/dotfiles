@@ -4,7 +4,7 @@ clean:
 deepClean:
     nix-collect-garbage -d --delete-older-than 1d
 
-linux profile:
+build profile:
    nix run .#homeConfigurations.{{profile}}.activationPackage --impure
 
 update:
