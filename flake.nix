@@ -7,25 +7,21 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    darwin = {
-        url = "github:lnl7/nix-darwin";
-        inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = inputs@{ flake-parts, darwin, ... }:
+  outputs = inputs@{ home-manager, ... }:
     let
-      system = "x86_64-linux";
+      system = (builtins.fromJSON (builtins.readFile ./config/nix/config.json)).system.architecture;
       pkgs = inputs.nixpkgs.legacyPackages.${system};
-      home-manager = inputs.home-manager;
     in {
       homeConfigurations.shared = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ ./shared.nix ];
+        modules = [ ./config/nix/shared.nix ];
       };
+
       homeConfigurations.personal = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ ./personal.nix ];
+        modules = [ ./config/nix/personal.nix ];
       };
     };
 }
