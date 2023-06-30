@@ -2,6 +2,8 @@
 let
     shared_config = import ./shared.nix { inherit pkgs; };
     i3_mod = "Mod4";
+    config_file = builtins.fromJSON (builtins.readFile ./config.json);
+    isDarwin = config_file.system.architecture == "aarch64-darwin";
 in
 {
     home.file.".background".source = ../.background;
@@ -9,7 +11,7 @@ in
     imports = [ shared_config ];
 
     programs.rofi = {
-      enable = true;
+      enable = if isDarwin then false else true;
       extraConfig = {
         disable-history = false;
         display-Network = " 󰤨  Network";
@@ -29,11 +31,11 @@ in
     };
     
     services.picom = {
-      enable = true;
+      enable = if isDarwin then false else true;
     };
 
     xsession.windowManager.i3 = {
-        enable = true;
+        enable = if isDarwin then false else true;
         config = {
             bars = [{
                 position = "bottom";
@@ -154,7 +156,7 @@ in
     };
 
     programs.i3status = {
-        enable = true;
+        enable = if isDarwin then false else true;
 
         general = {
           colors = true;
