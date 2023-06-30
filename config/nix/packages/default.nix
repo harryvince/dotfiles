@@ -9,6 +9,7 @@ with pkgs; [
     htop
     jq
     just
+    magic-wormhole
     nodejs
     postman
     python3Full
