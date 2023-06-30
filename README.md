@@ -4,7 +4,7 @@ This is collection of configuration files and scripts that I use to customize my
 
 ## Usage
 These dotfiles are intended to be used with a Unix-like operating system, such as macOS or Linux.
-To use them, simply clone the repository to a directory and run the following:
+To use them, simply run the following:
 ```
 git clone https://github.com/harryvince/dotfiles.git
 cd dotfiles
