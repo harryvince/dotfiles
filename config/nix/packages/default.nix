@@ -9,7 +9,6 @@ with pkgs; [
     htop
     jq
     just
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Ubuntu" ]; })
     nodejs
     postman
     python3Full

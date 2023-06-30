@@ -1,6 +1,8 @@
 {
     "system": {
-        "user": "harry"
+        "user": "harry",
+        "homedir": "home",
+        "architecture": "x86_64-linux"
     },
     "git" : {
         "email": "harryavince@gmail.com",

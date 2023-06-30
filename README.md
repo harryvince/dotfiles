@@ -3,13 +3,13 @@
 This is collection of configuration files and scripts that I use to customize my development environment.
 
 ## Usage
-These dotfiles are intended to be used with a Unix-like operating system, such as macOS or Linux (Currently only supports Ubuntu).
+These dotfiles are intended to be used with a Unix-like operating system, such as macOS or Linux.
 To use them, simply clone the repository to a directory and run the setup.sh script:
 ```
 git clone https://github.com/harryvince/dotfiles.git
 cd dotfiles
 sh <(curl -L https://nixos.org/nix/install) --daemon
-nix run ~/.config/home-manager#homeConfigurations.shared.activationPackage
+NIXPKGS_ALLOW_UNFREE=1 nix run .#homeConfigurations.shared.activationPackage --impure --extra-experimental-features nix-command --extra-experimental-features flakes
 ```
 The setup script handles most of the installs and setups required for your environment, effectively replacing the default configs with
 these new ones.

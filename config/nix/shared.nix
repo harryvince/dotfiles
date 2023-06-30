@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 let 
     tpm = pkgs.fetchFromGitHub {
@@ -15,13 +15,16 @@ in
 
     home = {
         username = config_file.system.user;
-        homeDirectory = "/home/${config_file.system.user}";
+        homeDirectory = "/${config_file.system.homedir}/${config_file.system.user}";
         stateVersion = "22.11";
         packages = import ./packages { inherit pkgs; };
 
         file = {
             ".tmux/plugins/tpm".source = tpm;
-            "bin".source = builtins.toPath ../bin;
+            "bin".source = builtins.toPath ../../bin;
+            ".config/nix/nix.conf".source = ./nix.conf;
+            ".config/nixpkgs/config.nix".source = ./config.nix;
+            ".config/nvim/lua/harry".source = ../nvim/lua/harry;
         };
 
     };
@@ -65,6 +68,12 @@ in
         enable = true;
         viAlias = true;
         vimAlias = true;
+
+        extraConfig = ''
+            lua << EOF
+                require("harry")
+            EOF
+        '';
     };
 
     programs.tmux = {
