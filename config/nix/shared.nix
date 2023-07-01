@@ -60,8 +60,6 @@ in
         initExtra = ''
             # Sessionizer binding
             bindkey -s ^f "~/bin/scripts/sessionizer\n"
-            # Start Zoxide
-            eval "$(zoxide init zsh)"
         '';
     };
 
