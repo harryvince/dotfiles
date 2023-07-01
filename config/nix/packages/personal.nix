@@ -5,6 +5,7 @@ with pkgs; [
     doppler
     feh
     fontforge
+    magic-wormhole
     pulumi-bin
     xclip
 ]
