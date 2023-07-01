@@ -1,7 +1,6 @@
 {
     "system": {
         "user": "harry",
-        "homedir": "home",
         "architecture": "x86_64-linux"
     },
     "git" : {

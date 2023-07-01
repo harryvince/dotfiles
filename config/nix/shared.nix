@@ -9,13 +9,14 @@ let
     };
     config_file = builtins.fromJSON (builtins.readFile ./config.json);
     tmux_config = builtins.readFile ../.tmux.conf;
+    homedir = if config_file.system.architecture == "aarch64-darwin" then "Users" else "home";
 in
 {
     fonts.fontconfig.enable = true;
 
     home = {
         username = config_file.system.user;
-        homeDirectory = "/${config_file.system.homedir}/${config_file.system.user}";
+        homeDirectory = "/${homedir}/${config_file.system.user}";
         stateVersion = "22.11";
         packages = import ./packages { inherit pkgs; };
 
