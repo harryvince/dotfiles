@@ -5,7 +5,7 @@ deepClean:
     nix-collect-garbage -d --delete-older-than 1d
 
 build profile:
-   nix run .#homeConfigurations.{{profile}}.activationPackage --impure
+   home-manager switch --flake ".#{{profile}}" --impure
 
 update:
     nix flake update

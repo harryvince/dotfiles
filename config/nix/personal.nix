@@ -44,6 +44,9 @@ in
             bars = [{
                 position = "bottom";
                 statusCommand = "${pkgs.i3status}/bin/i3status";
+                fonts = { 
+                    names = [ "IntelOne Mono" ]; 
+                };
                 colors = {
                   background = "#1a1b26";
                   statusline = "#c0caf5";
