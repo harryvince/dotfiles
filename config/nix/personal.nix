@@ -10,14 +10,18 @@ in
     home.packages = import ./packages/personal.nix { inherit pkgs; };
     imports = [ shared_config ];
 
+    home.file.".local/share/rofi/themes/simple-tokyonight.rasi" = {
+        source = if isDarwin then null else ../rofi/simple-tokyonight.rasi;
+    };
+
     programs.rofi = {
       enable = if isDarwin then false else true;
       extraConfig = {
         disable-history = false;
-        display-Network = " 󰤨  Network";
-        display-drun = "   Apps ";
-        display-run = "   Run ";
-        display-window = " 﩯  Window";
+        display-Network = "Network";
+        display-drun = "Apps";
+        display-run = "Run";
+        display-window = "Window";
         drun-display-format = "{icon} {name}";
         hide-scrollbar = true;
         icon-theme = "Oranchelo";
@@ -27,7 +31,7 @@ in
         sidebar-mode = true;
         terminal = "i3-sensible-terminal";
       };
-      theme = "android_notification";
+      theme = "simple-tokyonight";
     };
     
     services.picom = {
