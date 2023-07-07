@@ -9,28 +9,32 @@ let
     };
     config_file = builtins.fromJSON (builtins.readFile ./config.json);
     tmux_config = builtins.readFile ../.tmux.conf;
-    homedir = if config_file.system.architecture == "aarch64-darwin" then "Users" else "home";
+    homedir = if builtins.currentSystem == "aarch64-darwin" then "Users" else "home";
 in
 {
-    fonts.fontconfig.enable = true;
-
     home = {
         username = config_file.system.user;
         homeDirectory = "/${homedir}/${config_file.system.user}";
-        stateVersion = "22.11";
+        stateVersion = "23.05";
         packages = import ./packages { inherit pkgs; };
 
         file = {
             ".tmux/plugins/tpm".source = tpm;
             "bin".source = builtins.toPath ../../bin;
             ".config/nix/nix.conf".source = ./nix.conf;
-            ".config/nixpkgs/config.nix".source = ./config.nix;
             ".config/nvim/lua/harry".source = ../nvim/lua/harry;
         };
 
     };
 
     programs.home-manager.enable = true;
+
+    nixpkgs = {
+        config = {
+            allowUnfree = true;
+            allowUnfreePredicate = (_: true);
+        };
+    };
 
     programs.git = {
         enable = true;

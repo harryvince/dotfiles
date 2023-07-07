@@ -2,8 +2,7 @@
 let
     shared_config = import ./shared.nix { inherit pkgs; };
     i3_mod = "Mod4";
-    config_file = builtins.fromJSON (builtins.readFile ./config.json);
-    isDarwin = config_file.system.architecture == "aarch64-darwin";
+    isDarwin = builtins.currentSystem == "aarch64-darwin";
 in
 {
     home.file.".background".source = ../.background;
