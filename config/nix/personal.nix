@@ -2,16 +2,14 @@
 let
     shared_config = import ./shared.nix { inherit pkgs; };
     i3_mod = "Mod4";
-    isDarwin = builtins.currentSystem == "aarch64-darwin";
+    config_file = builtins.fromJSON (builtins.readFile ./config.json);
+    isDarwin = config_file.system.architecture == "aarch64-darwin";
 in
 {
     home.file.".background".source = ../.background;
+    home.file.".local/share/rofi/themes/simple-tokyonight.rasi".source = ../rofi/simple-tokyonight.rasi;
     home.packages = import ./packages/personal.nix { inherit pkgs; };
     imports = [ shared_config ];
-
-    home.file.".local/share/rofi/themes/simple-tokyonight.rasi" = {
-        source = if isDarwin then null else ../rofi/simple-tokyonight.rasi;
-    };
 
     programs.rofi = {
       enable = if isDarwin then false else true;

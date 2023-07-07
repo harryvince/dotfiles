@@ -11,7 +11,8 @@
 
   outputs = inputs@{ home-manager, ... }:
     let
-      pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+      system = (builtins.fromJSON (builtins.readFile ./config/nix/config.json)).system.architecture;
+      pkgs = inputs.nixpkgs.legacyPackages.${system};
     in {
       homeConfigurations.shared = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
@@ -23,9 +24,5 @@
         modules = [ ./config/nix/personal.nix ];
       };
 
-      homeConfigurations.darwin = home-manager.lib.homeManagerConfiguration {
-        pkgs = inputs.nixpkgs.legacyPackages.aarch64-darwin;
-        modules = [ ./config/nix/personal.nix ];
-      };
     };
 }

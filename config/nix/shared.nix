@@ -9,7 +9,7 @@ let
     };
     config_file = builtins.fromJSON (builtins.readFile ./config.json);
     tmux_config = builtins.readFile ../.tmux.conf;
-    homedir = if builtins.currentSystem == "aarch64-darwin" then "Users" else "home";
+    homedir = if config_file.system.architecture == "aarch64-darwin" then "Users" else "home";
 in
 {
     home = {
