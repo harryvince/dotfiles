@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Check if the --list-ids flag was passed in as an argument
 if [[ "$1" == "--list-ids" ]]; then

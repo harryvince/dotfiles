@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 selected=`cat ~/bin/scripts/cht/list | fzf`
 if [[ -z $selected ]]; then
     exit 0

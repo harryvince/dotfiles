@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, system, gitDetails, username, pkgs }:
 
 let 
     tpm = pkgs.fetchFromGitHub {
@@ -7,22 +7,20 @@ let
         rev = "master";
         sha256 = "01ribl326n6n0qcq68a8pllbrz6mgw55kxhf9mjdc5vw01zjcvw5";
     };
-    config_file = builtins.fromJSON (builtins.readFile ./config.json);
-    tmux_config = builtins.readFile ../.tmux.conf;
-    homedir = if config_file.system.architecture == "aarch64-darwin" then "Users" else "home";
+    tmux_config = builtins.readFile ../../config/.tmux.conf;
+    homedir = if system == "aarch64-darwin" then "Users" else "home";
 in
 {
     home = {
-        username = config_file.system.user;
-        homeDirectory = "/${homedir}/${config_file.system.user}";
+        username = username;
+        homeDirectory = "/${homedir}/${username}";
         stateVersion = "23.05";
         packages = import ./packages { inherit pkgs; };
 
         file = {
             ".tmux/plugins/tpm".source = tpm;
             "bin".source = builtins.toPath ../../bin;
-            ".config/nix/nix.conf".source = ./nix.conf;
-            ".config/nvim/lua/harry".source = ../nvim/lua/harry;
+            ".config/nix/nix.conf".source = ../../config/nix/nix.conf;
         };
 
     };
@@ -38,8 +36,8 @@ in
 
     programs.git = {
         enable = true;
-        userEmail = config_file.git.email;
-        userName = config_file.git.name;
+        userEmail = gitDetails.email;
+        userName = gitDetails.username;
     };
 
     programs.fzf.enable = true;
@@ -71,6 +69,10 @@ in
         enable = true;
         viAlias = true;
         vimAlias = true;
+
+        plugins = [
+            inputs.self.packages.${pkgs.system}.my-nvim
+        ];
 
         extraConfig = ''
             lua << EOF

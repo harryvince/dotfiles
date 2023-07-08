@@ -6,6 +6,13 @@ return {
     config = function()
         require('telescope').load_extension('lazygit')
         require('telescope').load_extension('notify')
+        require('telescope').setup({
+            pickers = {
+                find_files = {
+                    disable_devicons = true
+                }
+            }
+        })
         local builtin = require('telescope.builtin')
         -- File finding 
         vim.keymap.set('n', '<leader>pf', builtin.find_files, {})

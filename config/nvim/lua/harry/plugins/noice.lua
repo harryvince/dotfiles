@@ -9,6 +9,16 @@ return {
     },
     config = function()
         require("noice").setup({
+            cmdline = {
+                format = {
+                    cmdline = { icon = ">" },
+                    filter = { icon = "$" },
+                    help = { icon = "?" },
+                    lua = { icon = "☾" },
+                    search_down = { icon = "🔍⌄" },
+                    search_up = { icon = "🔍⌃" },
+                },
+            },
             lsp = {
                 -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
                 override = {
