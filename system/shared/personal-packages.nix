@@ -8,5 +8,6 @@ with pkgs; [
     intel-one-mono
     magic-wormhole
     pulumi-bin
+    remmina
     xclip
 ]

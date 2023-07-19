@@ -13,4 +13,9 @@ in
         enable = true;
         package = pkgs.firefox-bin;
     };
+
+    programs.go = {
+        enable = true;
+        goPath = "Development/language/go";
+    };
 }

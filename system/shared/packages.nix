@@ -10,6 +10,7 @@ with pkgs; [
     jq
     just
     nodejs
+    nodePackages.pnpm
     postman
     python3Full
     ripgrep
