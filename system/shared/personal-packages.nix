@@ -6,6 +6,8 @@ with pkgs; [
     fontforge
     intel-one-mono
     magic-wormhole
+    poetry
     pulumi-bin
+    sqlitebrowser
     xclip
 ]
