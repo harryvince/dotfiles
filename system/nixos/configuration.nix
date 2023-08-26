@@ -83,7 +83,7 @@
             };
         };
 
-        fonts = with pkgs; [ intel-one-mono ];
+        packages = with pkgs; [ intel-one-mono ];
     };
 
     environment = {
