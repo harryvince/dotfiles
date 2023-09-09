@@ -37,7 +37,7 @@ in
         enable = true;
         settings = {
             background_opacity = "0.9";
-            font_size = "21";
+            font_size = "18";
             enable_audio_bell = false;
         };
         theme = "Catppuccin-Macchiato";
