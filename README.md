@@ -8,6 +8,13 @@ To use them, simply run the following:
 ```
 git clone https://github.com/harryvince/dotfiles.git
 cd dotfiles
+./setup.sh
+```
+
+~~This method of setup still works but is no longer actively maintained~~
+```
+git clone https://github.com/harryvince/dotfiles.git
+cd dotfiles
 sh <(curl -L https://nixos.org/nix/install) --daemon
 nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 nix-channel --update
@@ -30,6 +37,7 @@ This repository contains configuration files for the following:
 - tmux
 - i3
 - nix
+The new bash setup script only sets up the essentail tools i.e. zsh, tmux and neovim
 
 ## Customization
 Feel free to customize these dotfiles to suit your needs. If you make any improvements or additions that you think others might
