@@ -13,6 +13,13 @@ concat_packages() {
     echo "Packages for install: $package_string"
 }
 
+prompt_sudo() {
+    if [ $EUID != 0 ]; then
+        sudo "$0" "$@"
+        exit $?
+    fi
+}
+
 setup_homebrew() {
     echo "Installing Homebrew..."
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -35,6 +42,9 @@ setup_system() {
     ln -s config/nvim ~/.config/nvim
     ln -s config/.tmux.conf ~/.tmux.conf
 }
+
+echo "Just prompting for sudo to enable a seamless setup."
+prompt_sudo
 
 setup_homebrew
 
