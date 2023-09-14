@@ -48,7 +48,7 @@ check_then_symlink() {
     location=${1}
     dir_to_link=${2}
     if [ -e "$location" ]; then
-        cp -r $location "$link_destination.backup"
+        cp -r $location "$location.backup"
     fi
     ln -s $dir_to_link $location
 }
@@ -69,12 +69,11 @@ setup_system() {
 echo "Just prompting for sudo to enable a seamless setup."
 prompt_sudo
 
-setup_homebrew
-
 if [ -n "$mac" ]; then
     echo 'Passed option for mac, not setting up zsh...'
 else
     echo 'No option passed, setting up basic linux dependencies'
+    setup_homebrew
     linux_base
 fi
 
