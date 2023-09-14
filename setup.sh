@@ -54,6 +54,7 @@ setup_system() {
     echo "Setting git config."
     git config --global user.name "$git_username"
     git config --global user.email "$git_email"
+    echo "Symlinking configs."
     check_then_symlink ~/.config/nvim config/nvim
     check_then_symlink ~/.tmux.conf config/.tmux.conf
 }
