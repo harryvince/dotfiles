@@ -5,11 +5,10 @@ return {
     dependencies = { { 'nvim-lua/plenary.nvim' }, { 'kdheepak/lazygit.nvim' } },
     config = function()
         require('telescope').load_extension('lazygit')
-        require('telescope').load_extension('notify')
         require('telescope').setup({
             pickers = {
                 find_files = {
-                    disable_devicons = true
+                    disable_devicons = false
                 }
             }
         })
