@@ -6,6 +6,8 @@ return {
         { 'neovim/nvim-lspconfig' },             -- Required
         { 'williamboman/mason.nvim' },           -- Optional
         { 'williamboman/mason-lspconfig.nvim' }, -- Optional
+        { 'jay-babu/mason-null-ls.nvim' },       -- Optional
+        { 'jose-elias-alvarez/null-ls.nvim' },   -- Optional
 
         -- Autocompletion
         { 'hrsh7th/nvim-cmp' },         -- Required
@@ -97,6 +99,14 @@ return {
         end)
 
         lsp.setup()
+        require('mason').setup()
+        require('null-ls').setup()
+        require('mason-null-ls').setup({
+            ensure_installed = {
+                'prettier',
+            },
+            handlers = {},
+        })
 
         vim.diagnostic.config({
             virtual_text = true
