@@ -21,6 +21,6 @@ return {
 
         -- setup must be called before loading
         vim.cmd.colorscheme "catppuccin"
-        vim.cmd "highlight LineNr guifg=#E9EC6B"
+        vim.cmd "highlight LineNr guifg=#f4d694"
     end
 }
