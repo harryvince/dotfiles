@@ -37,7 +37,8 @@ This repository contains configuration files for the following:
 - tmux
 - i3
 - nix
-The new bash setup script only sets up the essentail tools i.e. zsh, tmux and neovim
+
+The new bash setup script only sets up the essential tools i.e. zsh, tmux and neovim
 
 ## Customization
 Feel free to customize these dotfiles to suit your needs. If you make any improvements or additions that you think others might
