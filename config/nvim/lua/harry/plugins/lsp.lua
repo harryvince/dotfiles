@@ -69,6 +69,16 @@ return {
             ["<C-Space>"] = cmp.mapping.complete(),
         })
 
+        lsp.format_mapping('<leader>ff', {
+            format_opts = {
+                async = false,
+                timeout_ms = 10000,
+            },
+            servers = {
+                ['null-ls'] = {'javascript', 'typescript', 'html', 'css', 'scss' }
+            }
+        })
+
         lsp.set_preferences({
             sign_icons = {
                 error = "E",
@@ -95,7 +105,6 @@ return {
             vim.keymap.set("n", "<leader>rr", function() vim.lsp.buf.references() end, opts)
             vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
             vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-            vim.keymap.set("n", '<leader>ff', function() vim.lsp.buf.format { async = true } end, opts)
         end)
 
         lsp.setup()
