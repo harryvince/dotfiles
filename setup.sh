@@ -6,8 +6,7 @@ current_directory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 git_username="Harry Vince"
 git_email="harryavince@gmail.com"
 system_packages=('ansible' 'awscli' 'zoxide' 'bat' 'fd' 'htop' 'fzf' 'fnm'
-    'jq' 'just' 'ripgrep' 'unzip' 'wget' 'xclip' 'lazygit' 'tmux' 'neovim'
-    'zsh-autosuggestions' 'zsh-syntax-highlighting')
+    'jq' 'just' 'ripgrep' 'unzip' 'wget' 'xclip' 'lazygit' 'tmux' 'neovim')
 package_string=""
 
 concat_packages() {
@@ -26,7 +25,7 @@ setup_homebrew() {
     echo "Installing Homebrew..."
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> ~/.profile
-    source ~/.profile
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     echo "Homebrew setup."
 }
 
