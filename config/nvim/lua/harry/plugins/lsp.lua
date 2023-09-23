@@ -75,7 +75,7 @@ return {
                 timeout_ms = 10000,
             },
             servers = {
-                ['null-ls'] = {'javascript', 'typescript', 'html', 'css', 'scss' }
+                ['null-ls'] = {'javascript', 'typescript', 'html', 'css', 'scss', 'svelte', 'typescriptreact', 'javascriptreact', 'vue' }
             }
         })
 
@@ -109,11 +109,14 @@ return {
 
         lsp.setup()
         require('mason').setup()
-        require('null-ls').setup()
+
+        local null_ls = require('null-ls')
+        null_ls.setup()
+        null_ls.builtins.formatting.prettierd.with ({
+            extra_filetypes = { 'svelte' },
+        })
+
         require('mason-null-ls').setup({
-            ensure_installed = {
-                'prettier',
-            },
             handlers = {},
         })
 
