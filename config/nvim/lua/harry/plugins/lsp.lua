@@ -69,16 +69,6 @@ return {
             ["<C-Space>"] = cmp.mapping.complete(),
         })
 
-        lsp.format_mapping('<leader>ff', {
-            format_opts = {
-                async = false,
-                timeout_ms = 10000,
-            },
-            servers = {
-                ['null-ls'] = {'javascript', 'typescript', 'html', 'css', 'scss', 'svelte', 'typescriptreact', 'javascriptreact', 'vue' }
-            }
-        })
-
         lsp.set_preferences({
             sign_icons = {
                 error = "E",
@@ -90,6 +80,20 @@ return {
 
         lsp.setup_nvim_cmp({
             mapping = cmp_mappings
+        })
+
+        require('lspconfig').tsserver.setup({
+            on_init = function(client)
+                client.server_capabilities.documentFormattingProvider = false
+                client.server_capabilities.documentFormattingRangeProvider = false
+            end,
+        })
+
+        require('lspconfig').eslint.setup({
+            on_init = function(client)
+                client.server_capabilities.documentFormattingProvider = false
+                client.server_capabilities.documentFormattingRangeProvider = false
+            end,
         })
 
         lsp.on_attach(function(client, bufnr)
@@ -105,19 +109,25 @@ return {
             vim.keymap.set("n", "<leader>rr", function() vim.lsp.buf.references() end, opts)
             vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
             vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+            vim.keymap.set("n", "<leader>ff", function() vim.lsp.buf.format({ async = true }) end, opts)
         end)
 
         lsp.setup()
         require('mason').setup()
-
-        local null_ls = require('null-ls')
-        null_ls.setup()
-        null_ls.builtins.formatting.prettierd.with ({
-            extra_filetypes = { 'svelte' },
-        })
-
         require('mason-null-ls').setup({
             handlers = {},
+            automatic_installation = false,
+        })
+
+        local null_ls = require('null-ls')
+        null_ls.setup({
+            sources = {
+                null_ls.builtins.formatting.shfmt,
+            }
+        })
+
+        null_ls.builtins.formatting.prettierd.with({
+            extra_filetypes = { 'svelte' },
         })
 
         vim.diagnostic.config({
