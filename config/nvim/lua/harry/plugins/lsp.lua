@@ -82,22 +82,13 @@ return {
             mapping = cmp_mappings
         })
 
-        require('lspconfig').tsserver.setup({
-            on_init = function(client)
-                client.server_capabilities.documentFormattingProvider = false
-                client.server_capabilities.documentFormattingRangeProvider = false
-            end,
-        })
-
-        require('lspconfig').eslint.setup({
-            on_init = function(client)
-                client.server_capabilities.documentFormattingProvider = false
-                client.server_capabilities.documentFormattingRangeProvider = false
-            end,
-        })
-
         lsp.on_attach(function(client, bufnr)
             local opts = { buffer = bufnr, remap = false }
+
+            if client.name == "tsserver" then
+                client.server_capabilities.documentFormattingProvider = false
+                client.server_capabilities.documentFormattingRangeProvider = false
+            end
 
             vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
             vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
