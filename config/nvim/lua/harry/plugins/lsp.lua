@@ -85,10 +85,19 @@ return {
         lsp.on_attach(function(client, bufnr)
             local opts = { buffer = bufnr, remap = false }
 
-            if client.name == "tsserver" then
+            if client.name == "tsserver" or client.name == "jsonls" then
                 client.server_capabilities.documentFormattingProvider = false
                 client.server_capabilities.documentFormattingRangeProvider = false
             end
+
+            vim.api.nvim_create_autocmd("BufWritePost", {
+                pattern = { "*.js", "*.ts" },
+                callback = function(ctx)
+                    if client.name == "svelte" then
+                        client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.file })
+                    end
+                end,
+            })
 
             vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
             vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
