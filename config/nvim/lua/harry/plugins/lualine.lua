@@ -1,6 +1,6 @@
 return {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 
+    dependencies = {
         'kyazdani42/nvim-web-devicons',
         'folke/noice.nvim'
     },
@@ -28,13 +28,7 @@ return {
                 lualine_a = { 'mode' },
                 lualine_b = { 'branch', 'diff', 'diagnostics' },
                 lualine_c = { 'filename' },
-                lualine_x = { 
-                    {
-                        require('noice').api.status.command.get,
-                        cond = require('noice').api.status.command.has,
-                        color = { fg = "#EED49F" },
-                    }, 
-                },
+                lualine_x = {},
                 lualine_y = { 'progress' },
                 lualine_z = { 'location' }
             },
