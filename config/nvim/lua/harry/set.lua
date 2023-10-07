@@ -21,6 +21,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 vim.opt.termguicolors = true
+vim.opt.laststatus = 2
 
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
