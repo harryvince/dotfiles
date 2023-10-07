@@ -22,8 +22,9 @@ return {
         require "staline".setup({
             mode_icons = no_unicode_modes,
             lsp_symbols = lsp_symbols,
+
             sections = {
-                left = { '  ', 'mode', ' ', 'branch' },
+                left = { '  ', 'mode', ' ', 'branch', ' ', 'git_diff' },
                 mid = { 'lsp' },
                 right = { 'file_name', 'line_column' }
             },
