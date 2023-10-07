@@ -16,7 +16,7 @@ return {
             Error = " ",
             Info = " ",
             Warn = " ",
-            Hint = ""
+            Hint = " "
         }
 
         require "staline".setup({
