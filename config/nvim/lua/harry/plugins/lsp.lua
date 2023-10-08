@@ -7,7 +7,7 @@ return {
         { 'williamboman/mason.nvim' },           -- Optional
         { 'williamboman/mason-lspconfig.nvim' }, -- Optional
         { 'jay-babu/mason-null-ls.nvim' },       -- Optional
-        { 'jose-elias-alvarez/null-ls.nvim' },   -- Optional
+        { 'nvimtools/none-ls.nvim' },   -- Optional
 
         -- Autocompletion
         { 'hrsh7th/nvim-cmp' },         -- Required
