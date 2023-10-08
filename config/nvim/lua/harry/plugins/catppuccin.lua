@@ -16,6 +16,7 @@ return {
                 mason = true,
                 treesitter_context = true,
                 treesitter = true,
+                fidget = true,
             },
         })
 
