@@ -1,5 +1,5 @@
 return {
-    'tamton-aquib/staline.nvim',
+    'harryvince/staline.nvim',
     dependencies = {
         'kyazdani42/nvim-web-devicons',
     },
@@ -36,6 +36,7 @@ return {
             },
             defaults = {
                 true_colors = true,
+                file_icons_enabled = false,
                 line_column = " [%l/%L] :%c  ",
                 branch_symbol = " ",
                 mod_symbol = " "
