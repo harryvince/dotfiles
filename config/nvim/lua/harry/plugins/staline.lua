@@ -13,10 +13,10 @@ return {
         }
 
         local lsp_symbols = {
-            Error = " ",
-            Info = " ",
-            Warn = " ",
-            Hint = " "
+            Error = "E ",
+            Info = "I ",
+            Warn = "W ",
+            Hint = "H "
         }
 
         require "staline".setup({
@@ -24,8 +24,8 @@ return {
             lsp_symbols = lsp_symbols,
 
             sections = {
-                left = { '  ', 'mode', ' ', 'branch', ' ', 'git_diff' },
-                mid = { 'lsp' },
+                left = { '  ', 'mode', ' ', 'branch', ' ', 'lsp' },
+                mid = {},
                 right = { 'file_name', 'line_column' }
             },
             mode_colors = {
