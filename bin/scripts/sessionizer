@@ -15,8 +15,13 @@ do
     case $opt in
         "New Session")
             read -rp "Enter new session name: " SESSION_NAME
-            tmux new -s "$SESSION_NAME"
-            break
+            if [ -z $SESSION_NAME ]; then
+                tmux new -s "$(pwd | awk -F/ '{print $NF}')"
+                break
+            else
+                tmux new -s "$SESSION_NAME"
+                break
+            fi
             ;;
         *)
             tmux attach-session -t "$opt"
