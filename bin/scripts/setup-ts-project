@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+packageManagers="npm pnpm"
+pm=`echo $packageManagers | tr ' ' '\n' | fzf`
+if [[ -z $pm ]]; then
+    echo "No package manager selected"
+    exit 0
+fi
+
+# Setup git
+git init
+echo "node_modules
+dist" > .gitignore
+
+# Initial package.json setup
+npm init -y
+tmp_pkg=$(cat package.json) 
+tmp_pkg=$(echo $tmp_pkg | jq '.author = "Harry Vince"') 
+tmp_pkg=$(echo $tmp_pkg | jq '.main = "dist/index.js"') 
+tmp_pkg=$(echo $tmp_pkg | jq '.main as $main | .bin = $main') 
+tmp_pkg=$(echo $tmp_pkg | jq 'del(.scripts.test)') 
+tmp_pkg=$(echo $tmp_pkg | jq '.scripts.lint = "tsc"') 
+tmp_pkg=$(echo $tmp_pkg | jq '.scripts.prebuild = "npm run lint"') 
+tmp_pkg=$(echo $tmp_pkg | jq '.scripts.build = "tsup src/index.ts"') 
+tmp_pkg=$(echo $tmp_pkg | jq '.scripts.run = "tsx src/index.ts"') 
+echo "$tmp_pkg" > package.json
+
+# Setup the packages
+$pm i -D typescript tsup tsx
