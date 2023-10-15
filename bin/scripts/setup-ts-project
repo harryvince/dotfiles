@@ -7,6 +7,13 @@ if [[ -z $pm ]]; then
     exit 0
 fi
 
+types="library app"
+selectedType=`echo $types | tr ' ' '\n' | fzf`
+if [[ -z $selectedType ]]; then
+    echo "Repo type not selected"
+    exit 0
+fi
+
 # Setup git
 git init
 echo "node_modules
@@ -19,11 +26,98 @@ tmp_pkg=$(echo $tmp_pkg | jq '.author = "Harry Vince"')
 tmp_pkg=$(echo $tmp_pkg | jq '.main = "dist/index.js"') 
 tmp_pkg=$(echo $tmp_pkg | jq '.main as $main | .bin = $main') 
 tmp_pkg=$(echo $tmp_pkg | jq 'del(.scripts.test)') 
+tmp_pkg=$(echo $tmp_pkg | jq '.scripts.prepare = "husky install"') 
 tmp_pkg=$(echo $tmp_pkg | jq '.scripts.lint = "tsc"') 
-tmp_pkg=$(echo $tmp_pkg | jq '.scripts.prebuild = "npm run lint"') 
-tmp_pkg=$(echo $tmp_pkg | jq '.scripts.build = "tsup src/index.ts"') 
+tmp_pkg=$(echo $tmp_pkg | jq '.scripts.format = "prettier --write ."') 
 tmp_pkg=$(echo $tmp_pkg | jq '.scripts.run = "tsx src/index.ts"') 
+tmp_pkg=$(echo $tmp_pkg | jq '.scripts.prebuild = "npm run lint"') 
+if [[ $selectedType == "library" ]]; then
+    tmp_pkg=$(echo $tmp_pkg | jq '.scripts.build = "tsup src/index.ts --format cjs,esm --dts"') 
+elif [[ $selectedType == "app" ]]; then
+    tmp_pkg=$(echo $tmp_pkg | jq '.scripts.build = "tsup src/index.ts --minify"') 
+fi
 echo "$tmp_pkg" > package.json
 
+# Setup type config, linting and formatting
+echo '{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "Node",
+    "sourceMap": true,
+    "noEmit": true,
+    "baseUrl": "./src",
+    "paths": {
+      "*": ["node_modules/*"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}' > tsconfig.json
+
+echo "module.exports = {
+  parser: '@typescript-eslint/parser',
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier'
+  ],
+  parserOptions: {
+    ecmaVersion: 2022,
+    sourceType: 'module',
+  },
+  rules: {
+  },
+};" > .eslintrc.cjs
+
+echo 'trailingComma = "es5"
+tabWidth = 4
+semi = true
+singleQuote = true' > .prettierrc.toml
+
+echo "dist
+.prettierrc.toml
+tsconfig.json
+.eslintrc.cjs
+commitlint.config.cjs
+pnpm-lock.yaml
+package-lock.json" > .prettierignore
+
+echo "module.exports = { 
+  extends: [
+    '@commitlint/config-conventional'
+  ]
+};" > commitlint.config.cjs
+
+echo '{
+  "*.ts": [
+    "prettier --write"
+  ],
+  "*.json": "prettier --write"
+}' > .lintstagedrc.json
+
 # Setup the packages
-$pm i -D typescript tsup tsx
+npx husky-init
+$pm i -D typescript tsup tsx eslint @typescript-eslint/parser \
+    @typescript-eslint/eslint-plugin @types/node prettier eslint-config-prettier \
+    husky lint-staged @commitlint/config-conventional @commitlint/cli
+
+# Setup hooks
+echo '#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npx lint-staged' > .husky/pre-commit
+npx husky add .husky/commit-msg "npx --no -- commitlint --edit $1"
+
+# Setup initial typescript file
+mkdir src
+echo "console.log('Welcome to your new typescript project!')" > src/index.ts
+$pm run run
