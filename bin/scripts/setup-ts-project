@@ -31,6 +31,7 @@ tmp_pkg=$(echo $tmp_pkg | jq '.scripts.lint = "tsc"')
 tmp_pkg=$(echo $tmp_pkg | jq '.scripts.format = "prettier --write ."') 
 tmp_pkg=$(echo $tmp_pkg | jq '.scripts.run = "tsx src/index.ts"') 
 tmp_pkg=$(echo $tmp_pkg | jq '.scripts.prebuild = "npm run lint"') 
+tmp_pkg=$(echo $tmp_pkg | jq '.scripts.release = "standard-version"') 
 if [[ $selectedType == "library" ]]; then
     tmp_pkg=$(echo $tmp_pkg | jq '.scripts.build = "tsup src/index.ts --format cjs,esm --dts"') 
 elif [[ $selectedType == "app" ]]; then
@@ -108,7 +109,8 @@ echo '{
 npx husky-init
 $pm i -D typescript tsup tsx eslint @typescript-eslint/parser \
     @typescript-eslint/eslint-plugin @types/node prettier eslint-config-prettier \
-    husky lint-staged @commitlint/config-conventional @commitlint/cli
+    husky lint-staged @commitlint/config-conventional @commitlint/cli \
+    standard-version
 
 # Setup hooks
 echo '#!/usr/bin/env sh
