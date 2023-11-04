@@ -36,5 +36,5 @@ vim.g.mapleader = " "
 -- Disable the line as we now have a nice line
 vim.cmd "set noshowmode"
 
--- Enable formatting for 
+-- Enable formatting for
 vim.cmd "set nrformats+=alpha"

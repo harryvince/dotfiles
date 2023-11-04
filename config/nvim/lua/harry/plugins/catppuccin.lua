@@ -11,12 +11,18 @@ return {
             integrations = {
                 gitsigns = true,
                 nvimtree = true,
-                telescope = true,
+                telescope = {
+                    enabled = true,
+                },
                 harpoon = true,
                 mason = true,
                 treesitter_context = true,
                 treesitter = true,
                 fidget = true,
+                dap = {
+                    enabled = true,
+                    enable_ui = true,
+                },
             },
         })
 

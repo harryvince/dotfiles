@@ -7,7 +7,7 @@ return {
         { 'williamboman/mason.nvim' },           -- Optional
         { 'williamboman/mason-lspconfig.nvim' }, -- Optional
         { 'jay-babu/mason-null-ls.nvim' },       -- Optional
-        { 'nvimtools/none-ls.nvim' },   -- Optional
+        { 'nvimtools/none-ls.nvim' },            -- Optional
 
         -- Autocompletion
         { 'hrsh7th/nvim-cmp' },         -- Required
@@ -32,6 +32,7 @@ return {
             'tsserver',
             'eslint',
             'rust_analyzer',
+            'jedi_language_server'
         })
 
         -- Fix Undefined global 'vim'
