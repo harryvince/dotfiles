@@ -1,5 +1,6 @@
 return {
     'harryvince/staline.nvim',
+    dev = false,
     dependencies = {
         'kyazdani42/nvim-web-devicons',
     },

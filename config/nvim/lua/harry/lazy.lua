@@ -13,4 +13,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-return require('lazy').setup('harry.plugins')
+return require('lazy').setup({
+    import = 'harry.plugins'
+}, {
+    dev = {
+        path = "~/dev/nvim-plugins/",
+        patterns = {'harryvince'}
+    }
+})
