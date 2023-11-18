@@ -18,6 +18,8 @@ return require('lazy').setup({
 }, {
     dev = {
         path = "~/dev/nvim-plugins/",
-        patterns = {'harryvince'}
+    },
+    install = {
+        colorscheme = { 'catpuccin' },
     }
 })

@@ -1,5 +1,7 @@
 return {
     'voldikss/vim-floaterm',
+    event = 'VeryLazy',
+
     config = function()
         local options = { noremap = true }
 

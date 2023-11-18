@@ -8,7 +8,6 @@ return {
     dev = false,
     event = 'VeryLazy',
     config = function ()
-        local options = { noremap = true }
         local aws = require('aws-sdk')
 
         vim.keymap.set('n', '<leader>aws', aws.find_command)

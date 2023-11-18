@@ -1,8 +1,11 @@
 return {
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.1',
-    -- or                            , branch = '0.1.x',
-    dependencies = { { 'nvim-lua/plenary.nvim' }, { 'kdheepak/lazygit.nvim' } },
+    tag = '0.1.4',
+    dependencies = {
+        { 'nvim-lua/plenary.nvim' },
+        { 'kdheepak/lazygit.nvim' }
+    },
+    event = 'VeryLazy',
     config = function()
         require('telescope').load_extension('lazygit')
         require('telescope').setup({
@@ -13,7 +16,7 @@ return {
             }
         })
         local builtin = require('telescope.builtin')
-        -- File finding 
+        -- File finding
         vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
         vim.keymap.set('n', '<leader>bf', builtin.buffers, {})
         vim.keymap.set('n', '<C-p>', builtin.git_files, {})

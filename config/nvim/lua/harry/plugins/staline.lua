@@ -37,7 +37,6 @@ return {
             },
             defaults = {
                 true_colors = true,
-                file_icons_enabled = false,
                 line_column = " [%l/%L] :%c  ",
                 branch_symbol = " ",
                 mod_symbol = " "
