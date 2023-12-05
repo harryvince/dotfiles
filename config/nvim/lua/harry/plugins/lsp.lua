@@ -32,7 +32,8 @@ return {
             'tsserver',
             'eslint',
             'rust_analyzer',
-            'jedi_language_server'
+            'jedi_language_server',
+            'svelte'
         })
 
         -- Fix Undefined global 'vim'
@@ -91,14 +92,20 @@ return {
                 client.server_capabilities.documentFormattingRangeProvider = false
             end
 
-            vim.api.nvim_create_autocmd("BufWritePost", {
-                pattern = { "*.js", "*.ts" },
-                callback = function(ctx)
-                    if client.name == "svelte" then
+            if client.name == "svelte" then
+                vim.api.nvim_create_autocmd("BufWritePost", {
+                    pattern = { "*.js", "*.ts" },
+                    callback = function(ctx)
                         client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.file })
-                    end
-                end,
-            })
+                    end,
+                })
+
+                vim.api.nvim_create_autocmd({ "BufWrite" }, {
+                    group = vim.api.nvim_create_augroup("svelte_ondidchangetsorjsfile", { clear = true }),
+                    pattern = { "+page.server.ts", "+page.ts", "+layout.server.ts", "+layout.ts" },
+                    command = 'lua require("harry.svelte_fix").svelteFix()'
+                })
+            end
 
             vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
             vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
