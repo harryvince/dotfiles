@@ -61,6 +61,7 @@ setup_system() {
     echo "Symlinking configs."
     check_then_symlink ~/.config/nvim $current_directory/config/nvim
     check_then_symlink ~/.tmux.conf $current_directory/config/.tmux.conf
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     check_then_symlink ~/.zshrc $current_directory/config/.zshrc
     check_then_symlink ~/bin $current_directory/bin
 }
