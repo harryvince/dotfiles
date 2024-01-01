@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
+current_session=$(tmux display-message -p '#S')
 sessions=$(tmux list-sessions -F "#S" 2>/dev/null)
-session=`echo $sessions | tr ' ' '\n' | fzf`
+sessions=${sessions//"$current_session"/}
+
+session=`echo $sessions | tr ' ' '\n' | fzf --header="Select a session:" --layout=reverse`
 if [ -z $session ]; then
     echo "No Session Selected"
     exit 0
