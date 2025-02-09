@@ -1,4 +1,4 @@
-.PHONY: all brew-update brew-install
+.PHONY: all brew brew-install
 
 all:
 	stow zsh
