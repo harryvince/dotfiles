@@ -1,0 +1,5 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+git:
+  overrideGpg: true
+  paging:
+    externalDiffCommand: "difft --color=always --display=inline --syntax-highlight=on --tab-width=2"

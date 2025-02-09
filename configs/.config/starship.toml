@@ -1,0 +1,28 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = false
+
+[package]
+disabled = true
+
+[aws]
+disabled = true
+
+[python]
+disabled = true
+
+[git_branch]
+symbol = ""
+
+[lua]
+disabled = true
+
+[nodejs]
+detect_extensions = []
+detect_folders = []
+detect_files = [".node-version", ".nvmrc", "package-lock.json", "pnpm-lock.yaml"]
+    
+[character]
+success_symbol = "[;](bold green)"
+error_symbol = "[;](bold red)"
