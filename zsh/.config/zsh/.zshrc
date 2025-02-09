@@ -2,6 +2,7 @@ typeset -U path cdpath fpath manpath
 
 # Plugin management
 source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
+antidote load
 
 # Setup Completion
 autoload -U compinit && compinit
