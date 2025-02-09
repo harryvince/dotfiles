@@ -29,6 +29,7 @@ setopt SHARE_HISTORY
 unsetopt EXTENDED_HISTORY
 
 export PATH="$PATH:/opt/homebrew/bin"
+export PATH="$PATH:$HOME/bin"
 
 eval "$(fnm env --use-on-cd --shell zsh)"
 source <(fzf --zsh)

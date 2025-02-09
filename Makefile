@@ -3,6 +3,7 @@
 all:
 	stow zsh
 	stow configs
+	stow scripts
 
 brew-update:
 	rm Brewfile && brew bundle dump
