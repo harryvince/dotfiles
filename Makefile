@@ -1,4 +1,4 @@
-.PHONY: all brew brew-install
+.PHONY: all brew brew-update asdf-plugins asdf-comp
 
 all:
 	stow zsh
@@ -11,3 +11,12 @@ brew:
 
 brew-update:
 	rm Brewfile && brew bundle dump
+
+asdf-plugins:
+	asdf plugin add nodejs
+	asdf plugin add bun
+	asdf plugin add terraform
+
+asdf-comp:
+	mkdir -p "${ASDF_DATA_DIR:-$HOME/.asdf}/completions"
+	asdf completion zsh > "${ASDF_DATA_DIR:-$HOME/.asdf}/completions/_asdf"

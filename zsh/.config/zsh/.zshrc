@@ -4,11 +4,12 @@ typeset -U path cdpath fpath manpath
 source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
 antidote load
 
-# Setup Completion
-autoload -U compinit && compinit
 ZSH_AUTOSUGGEST_STRATEGY=(history)
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# Setup Completion
+autoload -U compinit && compinit
 
 # Setup History
 HISTSIZE="100000"
@@ -30,8 +31,9 @@ unsetopt EXTENDED_HISTORY
 
 export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$PATH:$HOME/bin"
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
-eval "$(fnm env --use-on-cd --shell zsh)"
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 source <(fzf --zsh)
 
 # oh-my-zsh aliases
