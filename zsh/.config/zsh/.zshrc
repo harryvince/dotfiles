@@ -9,7 +9,9 @@ ZSH_AUTOSUGGEST_STRATEGY=(history)
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 # Setup Completion
-autoload -U compinit && compinit
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+complete -C 'aws_completer' aws
 
 # Setup History
 HISTSIZE="100000"
