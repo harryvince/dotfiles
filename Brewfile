@@ -21,6 +21,7 @@ brew "difftastic"
 brew "docker", link: false
 brew "fastlane"
 brew "fzf"
+brew "gh"
 brew "git"
 brew "gnu-tar"
 brew "goreleaser"
