@@ -8,10 +8,6 @@ switch_to() {
     fi
 }
 
-has_session() {
-    tmux list-sessions | grep -q "^$1:"
-}
-
 hydrate() {
     if [ -f $2/.tmux-config ]; then
         tmux send-keys -t $1 "source $2/.tmux-config" c-M
@@ -40,9 +36,8 @@ if [[ -z $selected ]]; then
 fi
 
 selected_name=$(basename "$selected" | tr . _)
-tmux_running=$(pgrep tmux)
 
-if [[ -z $TMUX ]] && [[ -z $tmux_running ]] || ! has-session $selected_name 2>/dev/null; then
+if ! tmux has-session -t $selected_name 2>/dev/null; then
   tmux new-session -ds $selected_name -c $selected
   hydrate $selected_name $selected
 fi
