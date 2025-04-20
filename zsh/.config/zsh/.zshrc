@@ -17,7 +17,7 @@ complete -C 'aws_completer' aws
 HISTSIZE="100000"
 SAVEHIST="100000"
 
-HISTFILE="/Users/harry/.config/zsh/history"
+HISTFILE="/Users/${USER}/.config/zsh/history"
 mkdir -p "$(dirname "$HISTFILE")"
 
 setopt HIST_FCNTL_LOCK
@@ -87,6 +87,11 @@ alias -- m='. $HOME/bin/mono'
 alias -- n=nnn
 alias -- vim=nvim
 alias -- vi=nvim
+
+# Allow for editing of current cmd
+autoload edit-command-line
+zle -N edit-command-line
+bindkey '^e' edit-command-line
 
 # Prompt has to be last
 eval "$(starship init zsh)"

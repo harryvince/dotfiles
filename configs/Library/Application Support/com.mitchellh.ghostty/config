@@ -4,5 +4,6 @@ font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 macos-titlebar-proxy-icon = hidden
+macos-titlebar-style = tabs
 theme = vesper
 # background = #232136
