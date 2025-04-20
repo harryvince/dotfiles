@@ -1,4 +1,8 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+gui:
+  theme:
+    selectedLineBgColor:
+      - "#005f87"
 git:
   overrideGpg: true
   paging:
