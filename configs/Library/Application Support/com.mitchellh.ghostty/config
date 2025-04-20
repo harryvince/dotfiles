@@ -5,4 +5,4 @@ font-feature = -liga
 font-feature = -dlig
 macos-titlebar-proxy-icon = hidden
 theme = vesper
-background = #232136
+# background = #232136
