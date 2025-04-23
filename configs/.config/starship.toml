@@ -9,9 +9,6 @@ disabled = true
 [aws]
 disabled = true
 
-[python]
-disabled = true
-
 [git_branch]
 symbol = ""
 

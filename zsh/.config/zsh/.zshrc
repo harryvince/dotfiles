@@ -87,6 +87,8 @@ alias -- m='. $HOME/bin/mono'
 alias -- n=nnn
 alias -- vim=nvim
 alias -- vi=nvim
+alias -- python=python3
+alias -- pip=pip3
 
 # Allow for editing of current cmd
 autoload edit-command-line
