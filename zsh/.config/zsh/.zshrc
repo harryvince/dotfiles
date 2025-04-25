@@ -95,5 +95,9 @@ autoload edit-command-line
 zle -N edit-command-line
 bindkey '^e' edit-command-line
 
+# Option left and right
+bindkey "^[f" forward-word
+bindkey "^[b" backward-word
+
 # Prompt has to be last
 eval "$(starship init zsh)"
