@@ -33,6 +33,7 @@ unsetopt EXTENDED_HISTORY
 
 export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/Library/Python/3.9/bin"
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
