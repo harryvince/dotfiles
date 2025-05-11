@@ -100,5 +100,7 @@ bindkey '^e' edit-command-line
 bindkey "^[f" forward-word
 bindkey "^[b" backward-word
 
+bindkey -s "^n" "n\n"
+
 # Prompt has to be last
 eval "$(starship init zsh)"
