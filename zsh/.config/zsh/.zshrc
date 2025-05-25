@@ -90,6 +90,7 @@ alias -- vim=nvim
 alias -- vi=nvim
 alias -- python=python3
 alias -- pip=pip3
+alias -- pc=process-compose
 
 # Allow for editing of current cmd
 autoload edit-command-line
