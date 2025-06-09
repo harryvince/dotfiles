@@ -10,12 +10,14 @@ brew:
 	brew bundle install
 
 brew-update:
-	rm Brewfile && brew bundle dump
+	rm Brewfile && brew bundle dump && mv Brewfile deps/Brewfile
+
+asdf:
+	cat deps/asdf-plugins.txt | xargs -L 1 asdf plugin add
+	make asdf-comp
 
 asdf-plugins:
-	asdf plugin add nodejs
-	asdf plugin add bun
-	asdf plugin add terraform
+	asdf plugin list > deps/asdf-plugins.txt
 
 asdf-comp:
 	mkdir -p "${ASDF_DATA_DIR:-$HOME/.asdf}/completions"
