@@ -10,7 +10,7 @@ brew:
 	brew bundle install
 
 brew-update:
-	rm Brewfile && brew bundle dump && mv Brewfile deps/Brewfile
+	brew bundle dump && mv Brewfile deps/Brewfile
 
 asdf:
 	cat deps/asdf-plugins.txt | xargs -L 1 asdf plugin add
