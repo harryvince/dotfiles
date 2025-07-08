@@ -5,3 +5,4 @@ pnpm
 python
 terraform
 tflint
+tf-summarize
