@@ -2,7 +2,7 @@
 aws-cli = "latest"
 bun = "1.2.18"
 go = "1.24.5"
-node = "22.17.1"
+node = "22.20.0"
 pnpm = "10.13.1"
 python = "3.13.5"
 tf-summarize = "0.3.14"
