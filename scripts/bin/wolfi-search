@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+SEARCH="$1"
+
+arr=()
+
+for item in $(curl -s https://apk.cgr.dev/chainguard/x86_64/APKINDEX.tar.gz | tar -xzO APKINDEX | grep "P:$SEARCH"); do
+    item=$(echo "$item" | cut -d: -f2)
+    if [[ ! "${arr[@]}" =~ "${item}" ]]; then
+        arr+=("$item")
+    fi
+done
+
+for item in "${arr[@]}"; do echo "$item"; done
