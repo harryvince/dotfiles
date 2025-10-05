@@ -7,18 +7,9 @@ all:
 
 brew:
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	cp deps/Brewfile ./Brewfile
 	brew bundle install
+	rm ./Brewfile
 
 brew-update:
 	brew bundle dump && mv Brewfile deps/Brewfile
-
-asdf:
-	cat deps/asdf-plugins.txt | xargs -L 1 asdf plugin add
-	make asdf-comp
-
-asdf-plugins:
-	asdf plugin list > deps/asdf-plugins.txt
-
-asdf-comp:
-	mkdir -p "${ASDF_DATA_DIR:-$HOME/.asdf}/completions"
-	asdf completion zsh > "${ASDF_DATA_DIR:-$HOME/.asdf}/completions/_asdf"
