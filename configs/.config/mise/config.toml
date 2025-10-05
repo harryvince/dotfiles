@@ -1,0 +1,12 @@
+[tools]
+aws-cli = "latest"
+bun = "latest"
+go = "latest"
+node = "latest"
+pnpm = "latest"
+pre-commit = "latest"
+python = "latest"
+tf-summarize = "latest"
+tflint = "latest"
+uv = "latest"
+yq = "latest"
