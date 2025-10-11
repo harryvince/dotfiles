@@ -33,7 +33,6 @@ unsetopt EXTENDED_HISTORY
 
 export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:$HOME/Library/Python/3.9/bin"
 export PATH="/Users/harry/.bun/bin:$PATH"
 
 source <(fzf --zsh)
@@ -87,7 +86,6 @@ alias -- m='. $HOME/bin/mono'
 alias -- n="nnn -H -U"
 alias -- vim=nvim
 alias -- vi=nvim
-alias -- python=python3
 alias -- pip=pip3
 alias -- pc=process-compose
 alias -- rp="pinggy -p 443 -R0:localhost:3000 -o StrictHostKeyChecking=no -o ServerAliveInterval=30 $PINGGY_TOKEN+force@eu.pro.pinggy.io"
@@ -104,7 +102,8 @@ bindkey "^[b" backward-word
 
 bindkey -s "^n" "n\n"
 
-source <(mise activate)
+eval "$(mise activate)"
+eval "$(brew shellenv)"
 
 # Prompt has to be last
 eval "$(starship init zsh)"
