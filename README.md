@@ -13,5 +13,5 @@ git clone https://github.com/harryvince/dotfiles.git ~/.dotfiles
 ```sh
 make brew
 make all
+set -o vi
 ```
-
