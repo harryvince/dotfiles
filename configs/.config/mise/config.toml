@@ -1,16 +1,19 @@
 [tools]
-aws-cli = "latest"
 bun = "latest"
 go = "latest"
-melange = "latest"
-node = "latest"
+node = "22"
 pnpm = "latest"
 pre-commit = "latest"
-python = "latest"
+python = "3.14.0"
 terraform = "latest"
 tf-summarize = "latest"
 tflint = "latest"
 uv = "latest"
 yq = "latest"
-apko = "latest"
 "pipx:pynvim" = "latest"
+aws-cli = "latest"
+ansible-core = "latest"
+
+[settings]
+activate_aggressive = true
+experimental = true

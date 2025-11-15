@@ -5,5 +5,5 @@ gui:
       - "#005f87"
 git:
   overrideGpg: true
-  paging:
-    externalDiffCommand: "difft --color=always --display=inline --syntax-highlight=on --tab-width=2"
+  pagers:
+    - externalDiffCommand: "difft --color=always --display=inline --syntax-highlight=on --tab-width=2"
