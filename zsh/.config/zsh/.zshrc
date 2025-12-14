@@ -90,6 +90,7 @@ alias -- pip=pip3
 alias -- pc=process-compose
 alias -- rp="pinggy -p 443 -R0:localhost:3000 -o StrictHostKeyChecking=no -o ServerAliveInterval=30 $PINGGY_TOKEN+force@eu.pro.pinggy.io"
 alias -- av=ansible-vault
+alias -- prc="jj diff -r @ --name-only --no-pager | xargs pre-commit run --files"
 
 # Allow for editing of current cmd
 autoload edit-command-line
