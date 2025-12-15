@@ -1,0 +1,16 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+
+[user]
+name = "Harry Vince"
+# email = "<email-address>"
+
+[signing]
+behavior = "own"
+backend = "ssh"
+key = "~/.ssh/id_ed25519"
+
+[remotes.origin]
+auto-track-bookmarks = "glob:*"
+
+[aliases]
+rb = ["rebase", "-b@", "-dmain"]
