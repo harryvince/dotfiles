@@ -10,7 +10,14 @@ disabled = true
 disabled = true
 
 [git_branch]
+disabled = true
 symbol = ""
+
+[git_status]
+disabled = true
+
+[git_commit]
+disabled = true
 
 [lua]
 disabled = true
@@ -18,8 +25,13 @@ disabled = true
 [nodejs]
 detect_extensions = []
 detect_folders = []
-detect_files = [".node-version", ".nvmrc", "package-lock.json", "pnpm-lock.yaml"]
-    
+detect_files = [
+    ".node-version",
+    ".nvmrc",
+    "package-lock.json",
+    "pnpm-lock.yaml",
+]
+
 [character]
 success_symbol = "[;](bold green)"
 error_symbol = "[;](bold red)"
