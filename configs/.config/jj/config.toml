@@ -10,7 +10,7 @@ backend = "ssh"
 key = "~/.ssh/id_ed25519"
 
 [aliases]
-rb = ["rebase", "-b@", "-dmain@main"]
+rb = ["rebase", "-s@", "-dmain@origin"]
 
 [templates]
 git_push_bookmark = '"f-changes-" ++ change_id.short()'
