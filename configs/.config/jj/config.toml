@@ -9,11 +9,8 @@ behavior = "own"
 backend = "ssh"
 key = "~/.ssh/id_ed25519"
 
-[remotes.origin]
-auto-track-bookmarks = "glob:*"
-
 [aliases]
-rb = ["rebase", "-b@", "-dmain"]
+rb = ["rebase", "-b@", "-dmain@main"]
 
 [templates]
 git_push_bookmark = '"f-changes-" ++ change_id.short()'
