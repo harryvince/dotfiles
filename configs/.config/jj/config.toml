@@ -14,3 +14,6 @@ auto-track-bookmarks = "glob:*"
 
 [aliases]
 rb = ["rebase", "-b@", "-dmain"]
+
+[templates]
+git_push_bookmark = '"f-changes-" ++ change_id.short()'
