@@ -17,3 +17,4 @@ ansible-core = "latest"
 [settings]
 activate_aggressive = true
 experimental = true
+idiomatic_version_file = true
