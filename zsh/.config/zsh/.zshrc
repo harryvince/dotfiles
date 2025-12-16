@@ -108,6 +108,10 @@ g () {
         git switch -c "$branch" 2>/dev/null || git switch "$branch"
         git commit -m "$desc"
         git push -u origin "$branch"
+    elif [ "$1" = "am" ]; then
+        git add -A
+        git commit --amend --no-edit
+        git push --force-with-lease
     fi
 }
 
