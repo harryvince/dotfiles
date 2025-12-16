@@ -92,6 +92,25 @@ alias -- rp="pinggy -p 443 -R0:localhost:3000 -o StrictHostKeyChecking=no -o Ser
 alias -- av=ansible-vault
 alias -- prc="jj diff -r @ --name-only --no-pager | xargs pre-commit run --files"
 
+# Custom functions
+g () {
+    if [ "$1" = "b" ]; then
+        git checkout -b $2
+    elif [ "$1" = "rb" ]; then
+        git fetch origin
+        git rebase origin/main
+    elif [ "$1" = "p" ]; then
+        prefix="f-harry"
+        short="$(openssl rand -hex 8)"
+        branch="${prefix}-${short}"
+        read "desc?description: "
+        git add -A
+        git switch -c "$branch" 2>/dev/null || git switch "$branch"
+        git commit -m "$desc"
+        git push -u origin "$branch"
+    fi
+}
+
 # Allow for editing of current cmd
 autoload edit-command-line
 zle -N edit-command-line

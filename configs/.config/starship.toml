@@ -10,14 +10,7 @@ disabled = true
 disabled = true
 
 [git_branch]
-disabled = true
 symbol = ""
-
-[git_status]
-disabled = true
-
-[git_commit]
-disabled = true
 
 [lua]
 disabled = true
