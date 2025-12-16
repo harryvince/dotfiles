@@ -82,13 +82,10 @@ alias la='ls -lAh'
 alias -- brew-update='brew update && brew upgrade && brew autoremove && brew cleanup -s && brew cleanup --prune=all'
 alias -- ldo=lazydocker
 alias -- lg=lazygit
-alias -- m='. $HOME/bin/mono'
-alias -- n="nnn -H -U"
 alias -- vim=nvim
 alias -- vi=nvim
 alias -- pip=pip3
 alias -- pc=process-compose
-alias -- rp="pinggy -p 443 -R0:localhost:3000 -o StrictHostKeyChecking=no -o ServerAliveInterval=30 $PINGGY_TOKEN+force@eu.pro.pinggy.io"
 alias -- av=ansible-vault
 alias -- prc="jj diff -r @ --name-only --no-pager | xargs pre-commit run --files"
 
