@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+SEARCH="$1"
+
+if [[ -z "$SEARCH" ]]; then
+    echo "Usage: ws <search-term>"
+    exit 1
+fi
+
+get_packages() {
+    curl -s $1 |
+        tar -xzO APKINDEX |
+        awk -v RS='' 'BEGIN { print "[" }
+{
+    printf "{"
+    n = split($0, lines, "\n")
+    first=1
+    for (i=1; i<=n; i++) {
+        split(lines[i], kv, ":")
+        key = kv[1]
+        val = substr(lines[i], 3)
+        if (key == "C") jsonkey="checksum"
+        else if (key == "P") jsonkey="name"
+        else if (key == "V") jsonkey="version"
+        else if (key == "A") jsonkey="arch"
+        else if (key == "S") jsonkey="size"
+        else if (key == "I") jsonkey="installed_size"
+        else if (key == "T") jsonkey="description"
+        else if (key == "L") jsonkey="license"
+        else if (key == "o") jsonkey="origin"
+        else if (key == "m") jsonkey="maintainer"
+        else if (key == "t") jsonkey="build_time"
+        else if (key == "c") jsonkey="commit"
+        else if (key == "D") jsonkey="dependencies"
+        else if (key == "p") jsonkey="provides"
+        else continue
+
+        gsub(/"/, "\\\"", val)
+        if (!first) printf ","
+        printf "\"%s\":\"%s\"", jsonkey, val
+        first=0
+    }
+    printf "}"
+    rec_count++
+    # Only print comma if not last record
+    if (NR>0) printf ","
+}
+END { print "]" }' | sed 's/,]/]/' | jq "[[.[] | select(.name | contains(\"$2\"))] | group_by(.name)[] | {name: (.[0].name), description: .[0].description, version: ([.[] | .version] | reverse | .[0])}]"
+}
+
+PACKAGES=$(get_packages "https://apk.cgr.dev/chainguard/x86_64/APKINDEX.tar.gz" $SEARCH)
+if [ "$(echo $PACKAGES | jq '. | length')" == "0" ]; then
+    echo "Not found in default repos - checking extras"
+    PACKAGES=$(get_packages "https://apk.cgr.dev/extra-packages/x86_64/APKINDEX.tar.gz" $SEARCH)
+    if [ "$(echo $PACKAGES | jq '. | length')" == "0" ]; then
+        echo "Not found in extras either"
+        exit 1
+    else
+        echo $PACKAGES | jq '.'
+    fi
+else
+    echo $PACKAGES | jq '.'
+fi
