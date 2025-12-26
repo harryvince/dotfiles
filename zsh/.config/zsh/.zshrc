@@ -35,6 +35,9 @@ export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$PATH:$HOME/bin"
 export PATH="/Users/harry/.bun/bin:$PATH"
 
+# Diffft error tolerance
+export DFT_PARSE_ERROR_LIMIT=20
+
 source <(fzf --zsh)
 
 # oh-my-zsh aliases
