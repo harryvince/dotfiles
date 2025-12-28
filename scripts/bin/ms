@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+TMP_LOCATION="/tmp/mise_registry.toml"
+
+if [[ ! -f "$TMP_LOCATION" || "$(find "$TMP_LOCATION" -mmin +1440 | wc -l | xargs)" == "1" ]]; then
+    curl -s https://raw.githubusercontent.com/jdx/mise/refs/heads/main/registry.toml >$TMP_LOCATION
+fi
+
+if [[ -z "$1" ]]; then
+    echo "Usage: ms <pattern>"
+    exit 1
+fi
+
+TMP_TOML=""
+for line in $(grep -n "\[tools.$1" "$TMP_LOCATION" | tr ":" " " | awk '{print $1}'); do
+    line=$(expr $line - 1)
+    TMP_TOML="$TMP_TOML$(awk -v start="$line" 'NR > start { if (!NF) exit; print }' $TMP_LOCATION)\n"
+done
+
+bat --language toml <(printf "$TMP_TOML")
