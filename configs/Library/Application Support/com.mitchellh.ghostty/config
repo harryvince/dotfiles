@@ -6,6 +6,6 @@ font-feature = -liga
 font-feature = -dlig
 macos-titlebar-proxy-icon = hidden
 macos-titlebar-style = tabs
-macos-option-as-alt = true
+# macos-option-as-alt = true
 theme = vesper
 # background = #232136
