@@ -8,9 +8,10 @@ if [[ -z "$SEARCH" ]]; then
 fi
 
 get_packages() {
-    curl -s $1 |
-        tar -xzO APKINDEX |
-        awk -v RS='' 'BEGIN { print "[" }
+    if [[ ! -f "$TMP_LOCATION" || "$(find "$TMP_LOCATION" -mmin +1440 | wc -l | xargs)" == "1" ]]; then
+        curl -s $1 |
+            tar -xzO APKINDEX |
+            awk -v RS='' 'BEGIN { print "[" }
 {
     printf "{"
     n = split($0, lines, "\n")
@@ -45,12 +46,16 @@ get_packages() {
     # Only print comma if not last record
     if (NR>0) printf ","
 }
-END { print "]" }' | sed 's/,]/]/' | jq "[[.[] | select(.name | contains(\"$2\"))] | group_by(.name)[] | {name: (.[0].name), description: .[0].description, version: ([.[] | .version] | reverse | .[0])}]"
+END { print "]" }' | sed 's/,]/]/' >$TMP_LOCATION
+    fi
+    jq "[[.[] | select(.name | contains(\"$2\"))] | group_by(.name)[] | {name: (.[0].name), description: .[0].description, version: ([.[] | .version] | reverse | .[0])}]" $TMP_LOCATION
 }
 
+TMP_LOCATION="/tmp/ws.json"
 PACKAGES=$(get_packages "https://apk.cgr.dev/chainguard/x86_64/APKINDEX.tar.gz" $SEARCH)
 if [ "$(echo $PACKAGES | jq '. | length')" == "0" ]; then
     echo "Not found in default repos - checking extras"
+    TMP_LOCATION="/tmp/ws-extras.json"
     PACKAGES=$(get_packages "https://apk.cgr.dev/extra-packages/x86_64/APKINDEX.tar.gz" $SEARCH)
     if [ "$(echo $PACKAGES | jq '. | length')" == "0" ]; then
         echo "Not found in extras either"
