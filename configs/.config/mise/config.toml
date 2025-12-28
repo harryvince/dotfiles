@@ -1,10 +1,11 @@
+# For machine specific settings create a config in `~/.config/mise.toml`
 [tools]
 bun = "latest"
 go = "latest"
-node = "22"
+node = "24"
 pnpm = "latest"
 pre-commit = "latest"
-python = "3.14.1"
+python = "latest"
 terraform = "latest"
 tf-summarize = "latest"
 tflint = "latest"
