@@ -10,3 +10,4 @@ macos-titlebar-style = tabs
 # macos-option-as-alt = true
 theme = vesper
 # background = #232136
+auto-update-channel = tip
