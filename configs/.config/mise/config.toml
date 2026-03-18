@@ -19,3 +19,14 @@ ansible-core = "latest"
 activate_aggressive = true
 experimental = true
 idiomatic_version_file = true
+idiomatic_version_file_enable_tools = [
+  "bun",
+  "go",
+  "node",
+  "pnpm",
+  "python",
+  "terraform",
+  "tflint",
+  "uv",
+  "yq",
+]
