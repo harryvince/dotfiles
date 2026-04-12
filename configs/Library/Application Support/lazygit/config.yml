@@ -1,8 +1,15 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
 gui:
+  border: single
+  showBottomLine: false
+  showPanelJumps: false
+  skipAmendWarning: true
+  skipRewordInEditorWarning: true
   theme:
-    selectedLineBgColor: [ "#005f87"]
+    selectedLineBgColor: ["#005f87"]
 git:
   overrideGpg: true
   pagers:
     - externalDiffCommand: "difft --color=always --display=inline --syntax-highlight=on --tab-width=2"
+notARepository: quit
+promptToReturnFromSubprocess: false
