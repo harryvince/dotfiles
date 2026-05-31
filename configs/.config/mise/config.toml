@@ -2,7 +2,7 @@
 [tools]
 bun = "latest"
 go = "latest"
-node = "24"
+node = "26"
 pnpm = "latest"
 prek = "latest"
 python = "latest"
@@ -14,6 +14,7 @@ yq = "latest"
 "pipx:pynvim" = "latest"
 aws-cli = "latest"
 ansible-core = "latest"
+semgrep = "latest"
 
 [settings]
 activate_aggressive = true
