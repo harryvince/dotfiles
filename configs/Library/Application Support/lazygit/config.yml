@@ -20,7 +20,9 @@ gui:
     defaultFgColor: ["#e0def4"]
 git:
   overrideGpg: true
-  # pagers:
-  #   - externalDiffCommand: "difft --color=always --display=inline --syntax-highlight=on --tab-width=2"
+os:
+  editPreset: nvim
+  editInTerminal: true
+  edit: "if [ -n \"$NVIM\" ]; then nvim --server $NVIM --remote-send '<C-\\><C-n><cmd>close<cr>' && nvim --server $NVIM --remote {{filename}}; else nvim {{filename}}; fi"
 notARepository: quit
 promptToReturnFromSubprocess: false
