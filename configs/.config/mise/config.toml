@@ -1,6 +1,7 @@
 # For machine specific settings create a config in `~/.config/mise.toml`
 [tools]
 bun = "latest"
+chezmoi = "latest"
 go = "latest"
 node = "26"
 pnpm = "latest"
