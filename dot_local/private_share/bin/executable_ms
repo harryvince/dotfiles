@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+TMP_LOCATION="/tmp/mise_registry.json"
+
+if [[ ! -f "$TMP_LOCATION" || "$(find "$TMP_LOCATION" -mmin +1440 | wc -l | xargs)" == "1" ]]; then
+    curl -s curl -s https://api.github.com/repos/jdx/mise/contents/registry >$TMP_LOCATION
+fi
+
+if [[ -z "$1" ]]; then
+    echo "Usage: ms <pattern>"
+    exit 1
+fi
+
+jq '[.[] | select(.name | contains("'"$1"'")) | .name | rtrimstr(".toml")]' $TMP_LOCATION
+
+# bat --language toml <(printf "$TMP_TOML")

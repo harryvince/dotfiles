@@ -1,0 +1,15 @@
+font-family = GeistMono Nerd Font
+# font-family = JetBrains Mono NL
+# font-family = ZedMono Nerd Font
+font-size = 18
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+macos-titlebar-proxy-icon = hidden
+macos-titlebar-style = tabs
+macos-window-buttons = hidden
+# macos-option-as-alt = true
+theme = vesper
+# background = #232136
+# auto-update-channel = tip
+shell-integration-features = sudo
