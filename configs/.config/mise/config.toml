@@ -19,6 +19,8 @@ semgrep = "latest"
 [settings]
 activate_aggressive = true
 experimental = true
+lockfile = true
+pin = true
 idiomatic_version_file = true
 idiomatic_version_file_enable_tools = [
   "bun",
@@ -31,3 +33,8 @@ idiomatic_version_file_enable_tools = [
   "uv",
   "yq",
 ]
+github.github_attestations = true
+node.corepack = true
+python.uv_venv_auto = "create|source"
+pipx.uvx = true
+slsa = true
