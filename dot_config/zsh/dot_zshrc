@@ -39,8 +39,6 @@ export PATH="$HOME/.bun/bin:$PATH"
 # Diffft error tolerance
 export DFT_PARSE_ERROR_LIMIT=20
 
-source <(fzf --zsh)
-
 # oh-my-zsh aliases
 setopt auto_cd
 setopt auto_pushd
@@ -130,6 +128,8 @@ bindkey -s "^n" "n\n"
 
 eval "$(mise activate)"
 eval "$(brew shellenv)"
+
+source <(fzf --zsh)
 
 # Prompt has to be last
 eval "$(starship init zsh)"
