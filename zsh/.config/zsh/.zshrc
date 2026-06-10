@@ -33,11 +33,12 @@ unsetopt EXTENDED_HISTORY
 
 export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:$HOME/.local/share/bin"
-export PATH="$HOME/.bun/bin:$PATH"
+export PATH="/Users/harry/.bun/bin:$PATH"
 
 # Diffft error tolerance
 export DFT_PARSE_ERROR_LIMIT=20
+
+source <(fzf --zsh)
 
 # oh-my-zsh aliases
 setopt auto_cd
@@ -90,7 +91,6 @@ alias -- pip=pip3
 alias -- pc=process-compose
 alias -- av=ansible-vault
 alias -- prc="jj diff -r @ --name-only --no-pager | xargs pre-commit run --files"
-alias -- f=yazi
 
 # Custom functions
 g () {
@@ -128,8 +128,6 @@ bindkey -s "^n" "n\n"
 
 eval "$(mise activate)"
 eval "$(brew shellenv)"
-
-source <(fzf --zsh)
 
 # Prompt has to be last
 eval "$(starship init zsh)"

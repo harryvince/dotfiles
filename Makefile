@@ -1,4 +1,9 @@
-.PHONY: brew brew-update
+.PHONY: all brew brew-update asdf-plugins asdf-comp
+
+all:
+	stow zsh
+	stow configs
+	stow scripts
 
 brew:
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -7,4 +12,4 @@ brew:
 	rm ./Brewfile
 
 brew-update:
-	brew bundle dump
+	brew bundle dump && mv Brewfile deps/Brewfile

@@ -1,0 +1,8 @@
+bun
+golang
+nodejs
+pnpm
+python
+terraform
+tflint
+tf-summarize
