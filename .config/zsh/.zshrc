@@ -34,7 +34,7 @@ unsetopt EXTENDED_HISTORY
 export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/share/bin"
-export PATH="$HOME/.bun/bin:$PATH"
+export PATH="/Users/harry/.bun/bin:$PATH"
 
 # Diffft error tolerance
 export DFT_PARSE_ERROR_LIMIT=20
@@ -89,7 +89,6 @@ alias -- vi=nvim
 alias -- pip=pip3
 alias -- pc=process-compose
 alias -- av=ansible-vault
-alias -- prc="jj diff -r @ --name-only --no-pager | xargs pre-commit run --files"
 alias -- f=yazi
 
 # Custom functions

@@ -1,4 +1,8 @@
-.PHONY: brew brew-update
+.PHONY: setup brew brew-update
+
+setup:
+	stow --adopt .
+	git reset --hard
 
 brew:
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

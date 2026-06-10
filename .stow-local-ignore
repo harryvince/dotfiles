@@ -1,0 +1,8 @@
+\.git
+\.gitignore
+\.stow-local-ignore
+\.stowrc
+README\.md
+Makefile
+Brewfile
+renovate\.json

@@ -5,7 +5,6 @@ ansible-core = "latest"
 aws-cli = "latest"
 bat = "latest"
 bun = "latest"
-chezmoi = "latest"
 dive = "latest"
 fd = "latest"
 fzf = "latest"
@@ -46,9 +45,7 @@ idiomatic_version_file_enable_tools = [
   "pnpm",
   "python",
   "terraform",
-  "tflint",
   "uv",
-  "yq",
 ]
 github.github_attestations = true
 node.corepack = true
