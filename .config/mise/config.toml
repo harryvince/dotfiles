@@ -22,6 +22,7 @@ process-compose = "latest"
 python = "latest"
 ripgrep = "latest"
 semgrep = "latest"
+skate = "latest"
 starship = "latest"
 terraform = "latest"
 tf-summarize = "latest"
@@ -38,15 +39,7 @@ experimental = true
 lockfile = true
 pin = true
 idiomatic_version_file = true
-idiomatic_version_file_enable_tools = [
-  "bun",
-  "go",
-  "node",
-  "pnpm",
-  "python",
-  "terraform",
-  "uv",
-]
+idiomatic_version_file_enable_tools = ["bun", "go", "node", "pnpm", "python", "terraform", "uv"]
 github.github_attestations = true
 node.corepack = true
 python.uv_venv_auto = "create|source"
