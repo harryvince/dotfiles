@@ -90,6 +90,7 @@ alias -- pip=pip3
 alias -- pc=process-compose
 alias -- av=ansible-vault
 alias -- f=yazi
+alias -- cat='bat --pager=never --style=plain'
 
 # Custom functions
 g () {
