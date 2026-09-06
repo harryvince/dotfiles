@@ -48,4 +48,4 @@ pipx.uvx = true
 slsa = true
 
 [hooks]
-postinstall = "misecompsync --shell zsh"
+# postinstall = "misecompsync --shell zsh"
