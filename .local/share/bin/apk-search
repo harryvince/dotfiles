@@ -1,0 +1,259 @@
+#!/usr/bin/env python3
+"""Search APKINDEX repositories with a small fzf-like TUI.
+
+Reads repository APKINDEX tarballs from index.yml, caches parsed package metadata for
+24 hours, then lets you fuzzy-filter and select a package. The selected package is
+printed as: name<TAB>provides<TAB>version
+"""
+from __future__ import annotations
+
+import argparse
+import curses
+import gzip
+import io
+import json
+import os
+import re
+import sys
+import tarfile
+import time
+import urllib.request
+from dataclasses import dataclass, asdict
+from pathlib import Path
+from typing import Iterable
+
+CACHE_TTL_SECONDS = 24 * 60 * 60
+CONFIG_DIR = Path(os.environ.get("XDG_CONFIG_HOME") or os.environ.get("XDG_CONFIG") or Path.home() / ".config")
+DEFAULT_CONFIG = CONFIG_DIR / "apk-search.yml"
+CACHE_DIR = Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache")) / "apk-index-search"
+CACHE_FILE = CACHE_DIR / "packages.json"
+
+
+@dataclass
+class Package:
+    name: str
+    version: str
+    provides: str
+    repo: str
+    description: str = ""
+
+
+def load_index_urls(path: str | Path) -> list[str]:
+    """Load the tiny apk-search.yml format without external deps."""
+    text = Path(path).read_text(encoding="utf-8")
+    urls: list[str] = []
+    for line in text.splitlines():
+        line = line.strip()
+        if line.startswith("-"):
+            url = line[1:].strip().strip('"\'')
+            if url:
+                urls.append(url)
+    if not urls:
+        raise SystemExit(f"No APKINDEX URLs found in {path}")
+    return urls
+
+
+def cache_is_fresh() -> bool:
+    return CACHE_FILE.exists() and (time.time() - CACHE_FILE.stat().st_mtime) < CACHE_TTL_SECONDS
+
+
+def read_cache() -> list[Package]:
+    data = json.loads(CACHE_FILE.read_text(encoding="utf-8"))
+    return [Package(**item) for item in data]
+
+
+def write_cache(packages: list[Package]) -> None:
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    payload = [asdict(pkg) for pkg in packages]
+    CACHE_FILE.write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
+
+
+def fetch_url(url: str) -> bytes:
+    req = urllib.request.Request(url, headers={"User-Agent": "apk-index-search/1.0"})
+    with urllib.request.urlopen(req, timeout=60) as response:
+        return response.read()
+
+
+def apkindex_from_tar_gz(blob: bytes) -> str:
+    # APKINDEX.tar.gz is a gzip-compressed tar containing an APKINDEX text file.
+    with tarfile.open(fileobj=io.BytesIO(blob), mode="r:gz") as tar:
+        member = next((m for m in tar.getmembers() if Path(m.name).name == "APKINDEX"), None)
+        if member is None:
+            raise ValueError("tarball does not contain APKINDEX")
+        extracted = tar.extractfile(member)
+        if extracted is None:
+            raise ValueError("could not extract APKINDEX")
+        return extracted.read().decode("utf-8", errors="replace")
+
+
+def parse_apkindex(text: str, repo: str) -> list[Package]:
+    packages: list[Package] = []
+    current: dict[str, str] = {}
+
+    def flush() -> None:
+        if not current.get("P") or not current.get("V"):
+            return
+        packages.append(
+            Package(
+                name=current.get("P", ""),
+                version=current.get("V", ""),
+                provides=current.get("p", ""),
+                repo=repo,
+                description=current.get("T", ""),
+            )
+        )
+
+    for raw_line in text.splitlines():
+        if not raw_line:
+            flush()
+            current = {}
+            continue
+        if len(raw_line) > 1 and raw_line[1] == ":":
+            current[raw_line[0]] = raw_line[2:]
+    flush()
+    return packages
+
+
+def refresh_cache(config: str) -> list[Package]:
+    packages: list[Package] = []
+    for url in load_index_urls(config):
+        print(f"fetching {url}...", file=sys.stderr)
+        try:
+            packages.extend(parse_apkindex(apkindex_from_tar_gz(fetch_url(url)), repo=url))
+        except Exception as exc:  # Keep going if one repository is temporarily down.
+            print(f"warning: failed to fetch {url}: {exc}", file=sys.stderr)
+    packages.sort(key=lambda p: (p.name, p.version, p.repo))
+    write_cache(packages)
+    print(f"cached {len(packages)} packages in {CACHE_FILE}", file=sys.stderr)
+    return packages
+
+
+def get_packages(config: str, refresh: bool = False) -> list[Package]:
+    if not refresh and cache_is_fresh():
+        return read_cache()
+    return refresh_cache(config)
+
+
+def fuzzy_score(query: str, haystack: str) -> int | None:
+    """Simple fzf-ish subsequence score. Lower is better; None means no match."""
+    if not query:
+        return 0
+    q = query.lower()
+    h = haystack.lower()
+    pos = -1
+    gaps = 0
+    start = None
+    for ch in q:
+        nxt = h.find(ch, pos + 1)
+        if nxt == -1:
+            return None
+        if start is None:
+            start = nxt
+        if pos != -1:
+            gaps += nxt - pos - 1
+        pos = nxt
+    return gaps + (start or 0)
+
+
+def searchable(pkg: Package) -> str:
+    return f"{pkg.name} {pkg.version} {pkg.provides} {pkg.description}"
+
+
+def format_row(pkg: Package, width: int) -> str:
+    provides = pkg.provides or "-"
+    text = f"{pkg.name:<34} {pkg.version:<18} {provides}"
+    return text[: max(0, width - 1)]
+
+
+def filter_packages(packages: list[Package], query: str, limit: int) -> list[Package]:
+    if not query:
+        return packages[:limit]
+    scored: list[tuple[int, Package]] = []
+    for pkg in packages:
+        score = fuzzy_score(query, searchable(pkg))
+        if score is not None:
+            # Strongly prefer package name matches.
+            name_score = fuzzy_score(query, pkg.name)
+            if name_score is not None:
+                score -= 1000
+            scored.append((score, pkg))
+    scored.sort(key=lambda item: (item[0], item[1].name, item[1].version))
+    return [pkg for _, pkg in scored[:limit]]
+
+
+def tui(stdscr: "curses._CursesWindow", packages: list[Package]) -> Package | None:
+    curses.curs_set(1)
+    stdscr.keypad(True)
+    query = ""
+    selected = 0
+
+    while True:
+        height, width = stdscr.getmaxyx()
+        visible_count = max(1, height - 4)
+        matches = filter_packages(packages, query, max(visible_count * 5, 100))
+        selected = max(0, min(selected, len(matches) - 1))
+
+        stdscr.erase()
+        stdscr.addnstr(0, 0, f"> {query}", width - 1, curses.A_BOLD)
+        status = f"{len(matches)} shown / {len(packages)} cached  •  enter selects, esc/ctrl-c quits"
+        stdscr.addnstr(1, 0, status, width - 1, curses.A_DIM)
+        stdscr.addnstr(2, 0, f"{'NAME':<34} {'VERSION':<18} PROVIDES", width - 1, curses.A_UNDERLINE)
+
+        for row, pkg in enumerate(matches[:visible_count], start=3):
+            attr = curses.A_REVERSE if row - 3 == selected else curses.A_NORMAL
+            stdscr.addnstr(row, 0, format_row(pkg, width), width - 1, attr)
+        stdscr.refresh()
+
+        key = stdscr.get_wch()
+        if key in ("\n", "\r"):
+            return matches[selected] if matches else None
+        if key in ("\x1b", "\x03"):
+            return None
+        if key in ("\b", "\x7f") or key == curses.KEY_BACKSPACE:
+            query = query[:-1]
+            selected = 0
+        elif key == curses.KEY_UP:
+            selected -= 1
+        elif key == curses.KEY_DOWN:
+            selected += 1
+        elif key == curses.KEY_HOME:
+            selected = 0
+        elif key == curses.KEY_END:
+            selected = len(matches) - 1
+        elif isinstance(key, str) and key.isprintable():
+            query += key
+            selected = 0
+
+
+def print_package(pkg: Package, json_output: bool = False) -> None:
+    if json_output:
+        print(json.dumps(asdict(pkg), indent=2))
+    else:
+        print(f"{pkg.name}\t{pkg.provides or '-'}\t{pkg.version}")
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Cache and fuzzy-search APKINDEX package metadata")
+    parser.add_argument("query", nargs="*", help="non-interactive search query")
+    parser.add_argument("-c", "--config", default=DEFAULT_CONFIG, help="YAML file containing APKINDEX URLs")
+    parser.add_argument("-r", "--refresh", action="store_true", help="refresh cache even if it is younger than 24h")
+    parser.add_argument("--json", action="store_true", help="print selected/result package as JSON")
+    parser.add_argument("--limit", type=int, default=20, help="number of rows for non-interactive search")
+    args = parser.parse_args(argv)
+
+    packages = get_packages(args.config, args.refresh)
+    if args.query:
+        query = " ".join(args.query)
+        for pkg in filter_packages(packages, query, args.limit):
+            print_package(pkg, args.json)
+        return 0
+
+    selected = curses.wrapper(tui, packages)
+    if selected is None:
+        return 1
+    print_package(selected, args.json)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
