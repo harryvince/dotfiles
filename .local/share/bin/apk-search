@@ -186,6 +186,7 @@ def tui(stdscr: "curses._CursesWindow", packages: list[Package]) -> Package | No
     stdscr.keypad(True)
     query = ""
     selected = 0
+    top = 0
 
     while True:
         height, width = stdscr.getmaxyx()
@@ -193,15 +194,25 @@ def tui(stdscr: "curses._CursesWindow", packages: list[Package]) -> Package | No
         matches = filter_packages(packages, query, max(visible_count * 5, 100))
         selected = max(0, min(selected, len(matches) - 1))
 
+        # Keep the highlighted row inside the visible window.
+        if selected < top:
+            top = selected
+        elif selected >= top + visible_count:
+            top = selected - visible_count + 1
+        top = max(0, min(top, max(0, len(matches) - visible_count)))
+
         stdscr.erase()
         stdscr.addnstr(0, 0, f"> {query}", width - 1, curses.A_BOLD)
-        status = f"{len(matches)} shown / {len(packages)} cached  •  enter selects, esc/ctrl-c quits"
+        end = min(len(matches), top + visible_count)
+        status = f"{top + 1 if matches else 0}-{end} of {len(matches)} shown / {len(packages)} cached  •  enter selects, esc/ctrl-c quits"
         stdscr.addnstr(1, 0, status, width - 1, curses.A_DIM)
         stdscr.addnstr(2, 0, f"{'NAME':<34} {'VERSION':<18} PROVIDES", width - 1, curses.A_UNDERLINE)
 
-        for row, pkg in enumerate(matches[:visible_count], start=3):
-            attr = curses.A_REVERSE if row - 3 == selected else curses.A_NORMAL
+        for row, pkg in enumerate(matches[top:end], start=3):
+            idx = top + row - 3
+            attr = curses.A_REVERSE if idx == selected else curses.A_NORMAL
             stdscr.addnstr(row, 0, format_row(pkg, width), width - 1, attr)
+        stdscr.move(0, min(width - 1, 2 + len(query)))
         stdscr.refresh()
 
         key = stdscr.get_wch()
@@ -220,9 +231,14 @@ def tui(stdscr: "curses._CursesWindow", packages: list[Package]) -> Package | No
             selected = 0
         elif key == curses.KEY_END:
             selected = len(matches) - 1
+        elif key == curses.KEY_NPAGE:
+            selected += visible_count
+        elif key == curses.KEY_PPAGE:
+            selected -= visible_count
         elif isinstance(key, str) and key.isprintable():
             query += key
             selected = 0
+            top = 0
 
 
 def print_package(pkg: Package, json_output: bool = False) -> None:
