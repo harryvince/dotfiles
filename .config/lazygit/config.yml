@@ -27,3 +27,16 @@ os:
   edit: "if [ -n \"$NVIM\" ]; then nvim --server $NVIM --remote-send '<C-\\><C-n><cmd>close<cr>' && nvim --server $NVIM --remote {{filename}}; else nvim {{filename}}; fi"
 notARepository: quit
 promptToReturnFromSubprocess: false
+customCommands:
+  - key: "<c-g>"
+    context: files
+    description: Generate commit message with qwen
+    loadingText: Generating commit message...
+    command: |
+      git diff --cached | mlx_lm.generate --verbose False \
+      --model mlx-community/Qwen3-14B-4bit \
+      --prompt "/no_think Generate a concise conventional commit message in lowercase for the following git diff. Output only the commit message:
+
+      $(git diff --cached)" \
+        | tail -n 1 \
+        | git commit -F -
