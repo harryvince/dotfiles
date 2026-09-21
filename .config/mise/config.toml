@@ -37,7 +37,7 @@ yq = "latest"
 [settings]
 activate_aggressive = true
 experimental = true
-lockfile = true
+lockfile = false
 pin = true
 idiomatic_version_file = true
 idiomatic_version_file_enable_tools = ["bun", "go", "node", "pnpm", "python", "terraform", "uv"]
