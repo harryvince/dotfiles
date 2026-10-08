@@ -34,6 +34,15 @@ uv = "latest"
 yazi = "latest"
 yq = "latest"
 
+[bootstrap.packages]
+"brew:antidote" = "latest"
+"brew:gnu-sed" = "latest"
+"brew:gnupg" = "latest"
+"brew:stow" = "latest"
+"brew:watch" = "latest"
+"brew:wget" = "latest"
+"brew-cask:ghostty" = "latest"
+
 [settings]
 activate_aggressive = true
 experimental = true
