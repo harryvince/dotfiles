@@ -130,6 +130,7 @@ eval "$(mise activate)"
 eval "$(brew shellenv)"
 
 source <(fzf --zsh)
+source ~/.env.sh
 
 # Prompt has to be last
 eval "$(starship init zsh)"
