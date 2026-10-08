@@ -5,7 +5,7 @@ gui:
   showPanelJumps: false
   skipAmendWarning: true
   skipRewordInEditorWarning: true
-  showRootItemInFileTree: false
+  showRootItemInFileTree: true
   theme:
     activeBorderColor: ["#31748f", bold]
     inactiveBorderColor: ["#6e6a86"]
