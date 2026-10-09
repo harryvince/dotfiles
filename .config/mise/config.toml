@@ -55,6 +55,7 @@ node.corepack = true
 python.uv_venv_auto = "create|source"
 pipx.uvx = true
 slsa = true
+self_update.auto = true
 
 [hooks]
 # postinstall = "misecompsync --shell zsh"
